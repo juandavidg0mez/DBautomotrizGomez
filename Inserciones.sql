@@ -53,60 +53,60 @@ INSERT INTO vehiculo (id_vehiculo, id_marca) VALUES
 SELECT * FROM cliente;
 
 INSERT INTO cliente (DNI_cliente, NIT, nombre1, nombre2, apellido1, direccion, email, id_vehiculo) VALUES
-(12345678, 'A1234567', 'Juan', 'Carlos', 'González', 'Calle 45 #12-34', 'juan.gonzalez@example.com', 'UHK946'),
-(23456789, 'B2345678', 'María', NULL, 'Rodríguez', 'Calle 56 #23-45', 'maria.rodriguez@example.com', 'BOA229'),
-(345567890, 'C3456789', 'Luis', 'Fernando', 'López', 'Calle 67 #34-56', 'luis.lopez@example.com', 'YSR328'),
-(45678901, NULL, 'Ana', 'María', 'Fernández', 'Calle 78 #45-67', 'ana.fernandez@example.com', 'CSU573'),
-(56789017, 'R5678901', 'Carlos', NULL, 'Pérez', 'Calle 89 #56-78', 'carlos.perez@example.com', 'OOO529'),
-(67890123, 'R6789012', 'Laura', 'Isabel', 'Sánchez', 'Calle 90 #67-89', 'laura.sanchez@example.com', 'LPS177'),
-(28901234, NULL, 'José', 'Miguel', 'Martínez', 'Calle 12 #78-90', 'jose.martinez@example.com', 'NFV108'),
-(89012345, 'Y8901234', 'Marta', NULL, 'Gómez', 'Calle 23 #89-01', 'marta.gomez@example.com', 'JQT791'),
-(90123454, 'I9012345', 'Pedro', 'Antonio', 'Ruiz', 'Calle 34 #90-12', 'pedro.ruiz@example.com', 'GRU810'),
-(12345878, 'O1234567', 'Lucía', NULL, 'Díaz', 'Calle 45 #01-23', 'lucia.diaz@example.com', 'YYP173'),
-(23656789, 'P2345678', 'Juan', 'Carlos', 'González', 'Calle 56 #12-34', 'juan.gonzalez2@example.com', 'OBN836'),
-(34567890, 'Q3456789', 'María', 'Elena', 'Rodríguez', 'Calle 67 #23-45', 'maria.rodriguez2@example.com', 'JSW375'),
-(45688901, NULL, 'Luis', 'Miguel', 'López', 'Calle 78 #34-56', 'luis.lopez2@example.com', 'BSA281'),
-(56729012, 'A5678901', 'Ana', 'Lucía', 'Fernández', 'Calle 89 #45-67', 'ana.fernandez2@example.com', 'TOO924'),
-(61890123, NULL, 'Carlos', 'Andrés', 'Pérez', 'Calle 90 #56-78', 'carlos.perez2@example.com', 'HXC839'),
-(78961234, 'K7890123', 'Laura', 'Paola', 'Sánchez', 'Calle 12 #67-89', 'laura.sanchez2@example.com', 'XYZ123'),
-(89013345, NULL, 'José', NULL, 'Martínez', 'Calle 23 #78-90', 'jose.martinez2@example.com', 'ABC456'),
-(90123456, 'O9012345', 'Marta', 'Isabel', 'Gómez', 'Calle 34 #89-01', 'marta.gomez2@example.com', 'DEF789'),
-(12315678, NULL, 'Pedro', 'Alejandro', 'Ruiz', 'Calle 45 #90-12', 'pedro.ruiz2@example.com', 'GHI012'),
-(23406789, 'Y2345678', 'Lucía', 'María', 'Díaz', 'Calle 56 #01-23', 'lucia.diaz2@example.com', 'JKL345'),
-(34577890, NULL, 'Juan', NULL, 'González', 'Calle 67 #12-34', 'juan.gonzalez3@example.com', 'MNO678'),
-(44688901, 'U4567890', 'María', 'Luisa', 'Rodríguez', 'Calle 78 #23-45', 'maria.rodriguez3@example.com', 'PQR901'),
-(56609012, NULL, 'Luis', 'Antonio', 'López', 'Calle 89 #34-56', 'luis.lopez3@example.com', 'STU234'),
-(67870123, NULL, 'Ana', 'María', 'Fernández', 'Calle 90 #45-67', 'ana.fernandez3@example.com', 'VWX567'),
-(78900234, NULL, 'Carlos', 'José', 'Pérez', 'Calle 12 #56-78', 'carlos.perez3@example.com', 'YZA890');
+(00000000, 'A1234567', 'Juan', 'Carlos', 'González', 'Calle 45 #12-34', 'juan.gonzalez@example.com', 'UHK946'),
+(00000001, 'B2345678', 'María', NULL, 'Rodríguez', 'Calle 56 #23-45', 'maria.rodriguez@example.com', 'BOA229'),
+(00000002, 'C3456789', 'Luis', 'Fernando', 'López', 'Calle 67 #34-56', 'luis.lopez@example.com', 'YSR328'),
+(00000003, NULL, 'Ana', 'María', 'Fernández', 'Calle 78 #45-67', 'ana.fernandez@example.com', 'CSU573'),
+(00000004, 'R5678901', 'Carlos', NULL, 'Pérez', 'Calle 89 #56-78', 'carlos.perez@example.com', 'OOO529'),
+(00000005, 'R6789012', 'Laura', 'Isabel', 'Sánchez', 'Calle 90 #67-89', 'laura.sanchez@example.com', 'LPS177'),
+(00000006, NULL, 'José', 'Miguel', 'Martínez', 'Calle 12 #78-90', 'jose.martinez@example.com', 'NFV108'),
+(00000007, 'Y8901234', 'Marta', NULL, 'Gómez', 'Calle 23 #89-01', 'marta.gomez@example.com', 'JQT791'),
+(00000008, 'I9012345', 'Pedro', 'Antonio', 'Ruiz', 'Calle 34 #90-12', 'pedro.ruiz@example.com', 'GRU810'),
+(00000009, 'O1234567', 'Lucía', NULL, 'Díaz', 'Calle 45 #01-23', 'lucia.diaz@example.com', 'YYP173'),
+(00000010, 'P2345678', 'Juan', 'Carlos', 'González', 'Calle 56 #12-34', 'juan.gonzalez2@example.com', 'OBN836'),
+(00000011, 'Q3456789', 'María', 'Elena', 'Rodríguez', 'Calle 67 #23-45', 'maria.rodriguez2@example.com', 'JSW375'),
+(00000012, NULL, 'Luis', 'Miguel', 'López', 'Calle 78 #34-56', 'luis.lopez2@example.com', 'BSA281'),
+(00000013, 'A5678901', 'Ana', 'Lucía', 'Fernández', 'Calle 89 #45-67', 'ana.fernandez2@example.com', 'TOO924'),
+(00000014, NULL, 'Carlos', 'Andrés', 'Pérez', 'Calle 90 #56-78', 'carlos.perez2@example.com', 'HXC839'),
+(00000015, 'K7890123', 'Laura', 'Paola', 'Sánchez', 'Calle 12 #67-89', 'laura.sanchez2@example.com', 'XYZ123'),
+(00000016, NULL, 'José', NULL, 'Martínez', 'Calle 23 #78-90', 'jose.martinez2@example.com', 'ABC456'),
+(00000017, 'O9012345', 'Marta', 'Isabel', 'Gómez', 'Calle 34 #89-01', 'marta.gomez2@example.com', 'DEF789'),
+(00000018, NULL, 'Pedro', 'Alejandro', 'Ruiz', 'Calle 45 #90-12', 'pedro.ruiz2@example.com', 'GHI012'),
+(00000019, 'Y2345678', 'Lucía', 'María', 'Díaz', 'Calle 56 #01-23', 'lucia.diaz2@example.com', 'JKL345'),
+(00000020, NULL, 'Juan', NULL, 'González', 'Calle 67 #12-34', 'juan.gonzalez3@example.com', 'MNO678'),
+(00000021, 'U4567890', 'María', 'Luisa', 'Rodríguez', 'Calle 78 #23-45', 'maria.rodriguez3@example.com', 'PQR901'),
+(00000022, NULL, 'Luis', 'Antonio', 'López', 'Calle 89 #34-56', 'luis.lopez3@example.com', 'STU234'),
+(00000023, NULL, 'Ana', 'María', 'Fernández', 'Calle 90 #45-67', 'ana.fernandez3@example.com', 'VWX567'),
+(00000024, NULL, 'Carlos', 'José', 'Pérez', 'Calle 12 #56-78', 'carlos.perez3@example.com', 'YZA890');
 
 
 -- inserciones a tabla factura
 INSERT INTO factura (id_factura, DNI_cliente, fecha, total) VALUES
-(1, 12315678, '2023-06-06', 100.00),
-(2, 12345678, '2023-07-16', 150.00),
-(3, 12345878, '2023-12-16', 200.00),
-(4, 23406789, '2023-4-06', 75.50),
-(5, 23456789, '2023-12-14', 300.00),
-(6, 23656789, '2023-01-12', 125.75),
-(7, 34567890, '2023-07-23', 90.25),
-(8, 34577890, '2022-08-22', 180.50),
-(9, 44688901, '2024-09-12', 210.00),
-(10, 45678901, '2024-05-16', 50.00),
-(11, 45688901, '2022-02-09', 175.25),
-(12, 56609012, '2023-03-12', 225.75),
-(13, 56729012, '2018-05-09', 80.00),
-(14, 56789017, '2023-06-24', 120.50),
-(15, 61890123, '2024-09-17', 300.00),
-(16, 67870123, '2024-10-16', 150.00),
-(17, 67890123, '2023-11-12', 200.25),
-(18, 78900234, '2023-11-03', 180.00),
-(19, 28901234, '2014-12-02', 90.75),
-(20, 78961234, '2015-07-01', 175.50),
-(21, 89012345, '2018-09-09', 250.00),
-(22, 89013345, '2024-09-16', 300.25),
-(23, 90123454, '2024-03-12', 175.00),
-(24, 90123456, '2024-02-26', 50.75),
-(25, 345567890, '2024-01-23', 125.50);
+(1, 00000000, '2023-06-06', 100.00),
+(2, 00000001, '2023-07-16', 150.00),
+(3, 00000002, '2023-12-16', 200.00),
+(4, 00000003, '2023-4-06', 75.50),
+(5, 00000004, '2023-12-14', 300.00),
+(6, 00000005, '2023-01-12', 125.75),
+(7, 00000006, '2023-07-23', 90.25),
+(8, 00000007, '2022-08-22', 180.50),
+(9, 00000008, '2024-09-12', 210.00),
+(10, 00000009, '2024-05-16', 50.00),
+(11, 00000010, '2022-02-09', 175.25),
+(12, 00000011, '2023-03-12', 225.75),
+(13, 00000012, '2018-05-09', 80.00),
+(14, 00000013, '2023-06-24', 120.50),
+(15, 00000014, '2024-09-17', 300.00),
+(16, 00000014, '2024-10-16', 150.00),
+(17, 00000016, '2023-11-12', 200.25),
+(18, 00000017, '2023-11-03', 180.00),
+(19, 00000018, '2014-12-02', 90.75),
+(20, 00000019, '2015-07-01', 175.50),
+(21, 00000020, '2018-09-09', 250.00),
+(22, 00000021, '2024-09-16', 300.25),
+(23, 00000022, '2024-03-12', 175.00),
+(24, 00000023, '2024-02-26', 50.75),
+(25, 00000024, '2024-01-23', 125.50);
 
 -- inserciones a tabla cargo empleado
 
@@ -126,27 +126,26 @@ INSERT INTO tipocargoempleado (id_tipo_cargo, nombre_cargo) VALUES
 -- insercioens a tabla empleado
 
 INSERT INTO empleado (DNI_empleado, nombre1, nombre2, apellido1, direccion, email, id_tipo_cargo) VALUES
-(12390678, 'Juan', 'Carlos', 'López', 'Calle Principal 123', 'juan.lopez@example.com', 1),
-(23456789, 'María', 'Isabel', 'Gómez', 'Avenida Central 456', 'maria.gomez@example.com', 2),
-(34567890, 'Pedro', 'Antonio', 'Martínez', 'Calle Secundaria 789', 'pedro.martinez@example.com', 3),
-(45678901, 'Ana', 'Luisa', 'Rodríguez', 'Carrera 10 #20-30', 'ana.rodriguez@example.com', 4),
-(45008901, 'Raul', 'Luis', 'Rodríguez', 'Novena 10 #40-30', 'Raul.rodriguez@example.com', 4),
-(56789012, 'Carlos', 'Andrés', 'Pérez', 'Avenida Sur 345', 'carlos.perez@example.com', 5),
-(67890123, 'Luis', NULL, 'García', 'Calle Este 678', 'luis.garcia@example.com', 6),
-(78901234, 'Laura', 'María', 'Sánchez', 'Calle Oeste 901', 'laura.sanchez@example.com', 7),
-(89012345, 'David', 'Alejandro', 'González', 'Carrera 15 #25-35', 'david.gonzalez@example.com', 8),
-(90123456, 'Sofía', NULL, 'Hernández', 'Avenida Norte 123', 'sofia.hernandez@example.com', 9),
-(12305678, 'Gabriel', 'Jesús', 'Díaz', 'Calle Principal 234', 'gabriel.diaz@example.com', 10),
-(12345678, 'Patricia', 'María', 'Ramírez', 'Avenida Central 567', 'patricia.ramirez@example.com', 11),
-(00235678, 'Marco', 'Ausencio', 'Ramírez', 'Avenida Sin 567', 'Marco.Ausencio@example.com', 11),
-(01235078, 'Patricio', 'Medina', 'Garcia', 'Octava Sin 45', 'Patricio.Medina@example.com', 11),
-(23415678, 'Luis', 'Miguel', 'González', 'Calle Principal 345', 'luis.gonzalez@example.com', 1),
-(34567891, 'Marcela', NULL, 'Fernández', 'Avenida Central 678', 'marcela.fernandez@example.com', 1),
-(45678912, 'Javier', 'Andrés', 'Ramírez', 'Calle Secundaria 901', 'javier.ramirez@example.com', 2),
-(56789123, 'Andrea', 'Isabel', 'Martínez', 'Carrera 20 #30-40', 'andrea.martinez@example.com', 2),
-(67891234, 'Gabriel', 'Alejandro', 'Hernández', 'Avenida Sur 456', 'gabriel.hernandez@example.com', 9),
-(78912345, 'Luisa', NULL, 'García', 'Calle Este 789', 'luisa.garcia@example.com', 9);
-
+('JCL123A', 'Juan', 'Carlos', 'López', 'Calle Principal 123', 'juan.lopez@example.com', 1),
+('MIG456B', 'María', 'Isabel', 'Gómez', 'Avenida Central 456', 'maria.gomez@example.com', 2),
+('PAM789C', 'Pedro', 'Antonio', 'Martínez', 'Calle Secundaria 789', 'pedro.martinez@example.com', 3),
+('ALR321D', 'Ana', 'Luisa', 'Rodríguez', 'Carrera 10 #20-30', 'ana.rodriguez@example.com', 4),
+('RLR789E', 'Raul', 'Luis', 'Rodríguez', 'Novena 10 #40-30', 'Raul.rodriguez@example.com', 4),
+('CAP665F', 'Carlos', 'Andrés', 'Pérez', 'Avenida Sur 345', 'carlos.perez@example.com', 5),
+('LGX896G', 'Luis', NULL, 'García', 'Calle Este 678', 'luis.garcia@example.com', 6),
+('LMS456H', 'Laura', 'María', 'Sánchez', 'Calle Oeste 901', 'laura.sanchez@example.com', 7),
+('DAG145I', 'David', 'Alejandro', 'González', 'Carrera 15 #25-35', 'david.gonzalez@example.com', 8),
+('SXH736J', 'Sofía', NULL, 'Hernández', 'Avenida Norte 123', 'sofia.hernandez@example.com', 9),
+('GJD963K', 'Gabriel', 'Jesús', 'Díaz', 'Calle Principal 234', 'gabriel.diaz@example.com', 10),
+('PMR852L', 'Patricia', 'María', 'Ramírez', 'Avenida Central 567', 'patricia.ramirez@example.com', 11),
+('MAR741M', 'Marco', 'Ausencio', 'Ramírez', 'Avenida Sin 567', 'Marco.Ausencio@example.com', 11),
+('PMG789N', 'Patricio', 'Medina', 'Garcia', 'Octava Sin 45', 'Patricio.Medina@example.com', 11),
+('LMG987O', 'Luis', 'Miguel', 'González', 'Calle Principal 345', 'luis.gonzalez@example.com', 1),
+('MXF824P', 'Marcela', NULL, 'Fernández', 'Avenida Central 678', 'marcela.fernandez@example.com', 1),
+('JAR919Q', 'Javier', 'Andrés', 'Ramírez', 'Calle Secundaria 901', 'javier.ramirez@example.com', 2),
+('AIM913R', 'Andrea', 'Isabel', 'Martínez', 'Carrera 20 #30-40', 'andrea.martinez@example.com', 2),
+('GAH371S', 'Gabriel', 'Alejandro', 'Hernández', 'Avenida Sur 456', 'gabriel.hernandez@example.com', 9),
+('LXG798T', 'Luisa', NULL, 'García', 'Calle Este 789', 'luisa.garcia@example.com', 9);
 -- inserciones a Tipo de telefono
 
 INSERT INTO tipotelefono (id_tipo_telefono, nombre) VALUES
@@ -245,21 +244,21 @@ INSERT INTO marcapieza (id_marca_pieza, nombre) VALUES
 -- inserciones a tabla provedores
 
 INSERT INTO provedor (DNI_provedor, NIT, nombre1, nombre2, apellido1, direccion, email, id_marca_pieza) VALUES
-(12355678, 133456, 'Juan', 'Manuel', 'González', 'Calle 123, Ciudad', 'juan@example.com', 1),
-(20456789, 230956, 'María', NULL, 'López', 'Av. Principal, Pueblo', 'maria@example.com', 2), 
-(34367890, 345678, 'Pedro', 'José', 'Martínez', 'Carrera 45, Villa', 'pedro@example.com', 3), 
-(45678901, 406789, 'Ana', 'Sofía', 'García', 'Av. Libertadores, Barrio', 'ana@example.com', 4), 
-(50789012, 567490, 'Luis', NULL, 'Pérez', 'Calle 56, Aldea', 'luis@example.com', 5),
-(67800123, 678901, 'Marcela', 'Isabel', 'Rodríguez', 'Calle 67, Pueblo Nuevo', 'marcela@example.com', 6), 
-(08901234, 789012, 'David', NULL, 'Hernández', 'Av. Bolívar, Villa Real', 'david@example.com', 7), 
-(89012345, 890123, 'Carolina', 'Elena', 'Vargas', 'Calle 89, Colina', 'carolina@example.com', 8),
-(90123456, 901234, 'Jorge', NULL, 'Sánchez', 'Av. Principal, Urbanización', 'jorge@example.com', 9),
-(36567890, 233567, 'Marcelo', 'Antonio', 'López', 'Av. Bolívar, Pueblo', 'marcelo@example.com', 10), 
-(12345678, 023456, 'Juan', 'Manuel', 'González', 'Calle 123, Ciudad', 'juan@example.com', 11), 
-(03056789, 034567, 'María', NULL, 'López', 'Av. Principal, Pueblo', 'maria@example.com', 12), 
-(34567890, 305678, 'Pedro', 'José', 'Martínez', 'Carrera 45, Villa', 'pedro@example.com', 13), 
-(45078901, 456789, 'Ana', 'Sofía', 'García', 'Av. Libertadores, Barrio', 'ana@example.com', 14),
-(56709012, 567890, 'Luis', NULL, 'Pérez', 'Calle 56, Aldea', 'luis@example.com', 15); 
+(12355678, 'X133456X', 'Juan', 'Manuel', 'González', 'Calle 123, Ciudad', 'juan@example.com', 1),
+(20456789, 'X230956X', 'María', NULL, 'López', 'Av. Principal, Pueblo', 'maria@example.com', 2), 
+(34367890, 'X345678X', 'Pedro', 'José', 'Martínez', 'Carrera 45, Villa', 'pedro@example.com', 3), 
+(45678901, 'X406789X', 'Ana', 'Sofía', 'García', 'Av. Libertadores, Barrio', 'ana@example.com', 4), 
+(50789012, 'X567490X', 'Luis', NULL, 'Pérez', 'Calle 56, Aldea', 'luis@example.com', 5),
+(67800123, 'X678901X', 'Marcela', 'Isabel', 'Rodríguez', 'Calle 67, Pueblo Nuevo', 'marcela@example.com', 6), 
+(08901234, 'X789012X', 'David', NULL, 'Hernández', 'Av. Bolívar, Villa Real', 'david@example.com', 7), 
+(89012345, 'X890123X', 'Carolina', 'Elena', 'Vargas', 'Calle 89, Colina', 'carolina@example.com', 8),
+(90123456, 'X901234X', 'Jorge', NULL, 'Sánchez', 'Av. Principal, Urbanización', 'jorge@example.com', 9),
+(36567890, 'X233567X', 'Marcelo', 'Antonio', 'López', 'Av. Bolívar, Pueblo', 'marcelo@example.com', 10), 
+(12345678, 'X023456X', 'Juan', 'Manuel', 'González', 'Calle 123, Ciudad', 'juan@example.com', 11), 
+(03056789, 'X034567X', 'María', NULL, 'López', 'Av. Principal, Pueblo', 'maria@example.com', 12), 
+(34567890, 'X305678X', 'Pedro', 'José', 'Martínez', 'Carrera 45, Villa', 'pedro@example.com', 13), 
+(45078901, 'X456789X', 'Ana', 'Sofía', 'García', 'Av. Libertadores, Barrio', 'ana@example.com', 14),
+(56709012, 'X567890X', 'Luis', NULL, 'Pérez', 'Calle 56, Aldea', 'luis@example.com', 15); 
 
 -- categoria repuesto
 
@@ -375,17 +374,18 @@ INSERT INTO repuestopieza (id_pieza, id_categoria, nombre_pieza) VALUES
 
 -- ordencompra 
 INSERT INTO ordencompra (id_orden, fecha_orden, DNI_provedor, DNI_empleado, total) VALUES
-(101, '2024-01-15 10:30:00', 3056789, 12390678, 17000.00),
-(102, '2024-01-16 11:00:00', 12345678, 23415678, 1600.00),
-(103, '2024-01-17 09:45:00', 34367890, 34567890, 900.00),
-(104, '2024-01-18 14:20:00', 34567890, 67890123, 2640.00),
-(105, '2024-01-19 08:30:00', 36567890, 56789012, 1080.00),
-(106, '2024-01-20 12:15:00', 45678901, 45008901, 3850.00),
-(107, '2024-01-21 16:40:00', 56709012, 1235078, 4050.00),
-(108, '2024-01-22 10:05:00', 67800123, 78901234, 1100.00),
-(109, '2024-01-23 15:55:00', 08901234, 67890123, 660.00),
-(110, '2024-01-24 11:50:00', 89012345, 67890123, 220.00);
+(101, '2024-01-15 10:30:00', 3056789,  'AIM913R', 17000.00),
+(102, '2024-01-16 11:00:00', 12345678, 'ALR321D', 1600.00),
+(103, '2024-01-17 09:45:00', 34367890, 'CAP665F', 900.00),
+(104, '2024-01-18 14:20:00', 34567890, 'MXF824P', 2640.00),
+(105, '2024-01-19 08:30:00', 36567890, 'PMG789N', 1080.00),
+(106, '2024-01-20 12:15:00', 45678901, 'PAM789C', 3850.00),
+(107, '2024-01-21 16:40:00', 56709012, 'PMR852L' 4050.00),
+(108, '2024-01-22 10:05:00', 67800123, 'PMR852L', 1100.00),
+(109, '2024-01-23 15:55:00', 08901234, 'SXH736J', 660.00),
+(110, '2024-01-24 11:50:00', 89012345, 'LGX896G', 220.00);
 
+SELECT * FROM empleado;
 
 
 INSERT INTO detallecompra (id_detalle_orden, id_orden, id_pieza, cantidad, precio) VALUES

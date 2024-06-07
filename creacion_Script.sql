@@ -13,8 +13,8 @@ CREATE TABLE vehiculo (
 );
 
 CREATE TABLE cliente (
-    DNI_cliente INT(11) PRIMARY KEY,
-    NIT VARCHAR(11) UNIQUE,
+    DNI_cliente VARCHAR(16) PRIMARY KEY,
+    NIT VARCHAR(16) UNIQUE,
     nombre1 VARCHAR(20) NOT NULL,
     nombre2 VARCHAR(20),
     apellido1 VARCHAR(20) NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE cliente (
 
 CREATE TABLE factura (
     id_factura INT PRIMARY KEY,
-    DNI_cliente INT(11) NOT NULL,
+    DNI_cliente VARCHAR(16) NOT NULL,
     fecha DATE NOT NULL,
     total DECIMAL(10,2),
     Foreign Key (DNI_cliente) REFERENCES cliente(DNI_cliente)
@@ -38,7 +38,7 @@ CREATE TABLE tipocargoempleado (
 );
 
 CREATE TABLE empleado (
-    DNI_empleado INT(10) PRIMARY KEY,
+    DNI_empleado VARCHAR(16) PRIMARY KEY,
     nombre1 VARCHAR(20) NOT NULL,
     nombre2 VARCHAR(20),
     apellido1 VARCHAR(20) NOT NULL,
@@ -67,11 +67,9 @@ CREATE TABLE marcapieza (
 
 CREATE TABLE provedor (
     DNI_provedor INT(10) PRIMARY KEY,
-    NIT INT(9) UNIQUE,
+    NIT VARCHAR(16) UNIQUE,
     nombre1 VARCHAR(20) NOT NULL,
-    nombre2 VARCHAR(20),
-    apellido1 VARCHAR(20) NOT NULL,
-    direccion VARCHAR(200) NOT NULL,
+    apellido1 VARCHAR(20),
     email VARCHAR(200) NOT NULL,
     id_marca_pieza INT NOT NULL,
     Foreign Key (id_marca_pieza) REFERENCES marcapieza (id_marca_pieza)
@@ -93,7 +91,7 @@ CREATE TABLE ordencompra (
     id_orden INT PRIMARY KEY,
     fecha_orden DATETIME NOT NULL,
     DNI_provedor INT(10) NOT NULL,
-    DNI_empleado INT NOT NULL,
+    DNI_empleado VARCHAR(16) NOT NULL,
     total DECIMAL(15, 2) NOT NULL,
     Foreign Key (DNI_provedor) REFERENCES provedor (DNI_provedor),
     Foreign Key (DNI_empleado) REFERENCES empleado (DNI_empleado)
@@ -122,7 +120,7 @@ CREATE TABLE historiareparacion (
 -- Tabla de M&M entre EMPLEADO and HISTORIA_REPARACION
 CREATE Table historia_empelado (
     id_historia_reparacion INT NOT NULL,
-    DNI_empleado INT(10) NOT NULL,
+    DNI_empleado VARCHAR(16) NOT NULL,
     Foreign Key (id_historia_reparacion) REFERENCES historiareparacion (id_historia_reparacion),
     Foreign Key (DNI_empleado) REFERENCES empleado (DNI_empleado)
 );
@@ -183,14 +181,14 @@ CREATE TABLE provedortelefono(
 );
 
 CREATE TABLE clientetelefono(
-    DNI_cliente INT(11) NOT NULL,
+    DNI_cliente VARCHAR(16) NOT NULL,
     id_telefono_global INT,
     Foreign Key (id_telefono_global) REFERENCES globaltelefono(id_telefono_global),
     Foreign Key (DNI_cliente) REFERENCES cliente(DNI_cliente)
 );
 
 CREATE TABLE empleadotelefono(
-    DNI_empleado INT(10) NOT NULL,
+    DNI_empleado VARCHAR(16) NOT NULL,
     id_telefono_global INT,
     Foreign Key (id_telefono_global) REFERENCES globaltelefono(id_telefono_global),
     Foreign Key (DNI_empleado) REFERENCES empleado(DNI_empleado)
