@@ -3,7 +3,7 @@
 
 
 -- ==========================================================
-
+USE DB_automotrizGomez;
 
 /*
 Consultas requeridas
@@ -165,7 +165,7 @@ INNER JOIN vehiculo AS V ON EM.id_vehiculo = V.id_vehiculo
 INNER JOIN historiareparacion AS VH ON V.id_vehiculo = VH.id_vehiculo
 INNER JOIN servicio_reparacion AS SR ON VH.id_historia_reparacion = SR.id_historia_reparacion
 INNER JOIN servico AS SV ON SR.id_servicio = SV.id_servicio
-GROUP BY PLACA , Cliente ;
+GROUP BY PLACA , Cliente;
 
 
 /*
@@ -542,7 +542,7 @@ BEGIN
     END IF;
 
     DROP TEMPORARY TABLE IF EXISTS temp_resultados;
-END$$
+END;
 
 DELIMITER ;
 
@@ -671,4 +671,6 @@ SELECT Cant_Servios_X_Servicio, Descrip_servicio
 FROM servio_X_solicitado
 WHERE Cant_Servios_X_Servicio = (SELECT MAX(Cant_Servios_X_Servicio) FROM servio_X_solicitado);
 END$$
+
+DELIMITER ;
 CALL servicios_solicitados(2024);

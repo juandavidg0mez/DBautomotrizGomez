@@ -215,7 +215,7 @@ CREATE TABLE empleadotelefono(
                         -- CRECION VISTAS
 -- ========================================================================
 
-CREATE VIEW Vista_factura_detalles AS
+CREATE VIEW vista_factura_detalles AS
 SELECT 
 EM.DNI_cliente AS DNI,
 CONCAT(EM.nombre1, ' ', COALESCE(EM.nombre2, ''), ' ', COALESCE(EM.apellido1, '')) AS Cliente,

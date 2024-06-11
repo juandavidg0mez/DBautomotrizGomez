@@ -453,5 +453,251 @@ GROUP BY Nombre
 Mismo caso en el cual ya empezamos con las consultal SubConsultas que en este caso, hacemos un consultada de esa consulta temporal tambein podemos utilizar las sentencias WHERE
 </strong>
 </pre>
+~~~~mysql
+SELECT 
+CONCAT(EM.nombre1, ' ', COALESCE(EM.nombre2, ''), ' ', COALESCE(EM.apellido1, '')) AS Cliente,
+VH.id_vehiculo AS PLACA , 
+COUNT(SR.id_historia_reparacion) AS Cantidad_servicos_adquiridos, 
+FORMAT(AVG(SV.costo), 1) AS promedio_servicio
+FROM cliente AS EM
+INNER JOIN vehiculo AS V ON EM.id_vehiculo = V.id_vehiculo
+INNER JOIN historiareparacion AS VH ON V.id_vehiculo = VH.id_vehiculo
+INNER JOIN servicio_reparacion AS SR ON VH.id_historia_reparacion = SR.id_historia_reparacion
+INNER JOIN servico AS SV ON SR.id_servicio = SV.id_servicio
+GROUP BY PLACA , Cliente;
+~~~~
+## Resultado:
+<pre>+-------------------------+--------+------------------------------+-------------------+
+| Cliente                 | PLACA  | Cantidad_servicos_adquiridos | promedio_servicio |
++-------------------------+--------+------------------------------+-------------------+
+| Juan Carlos González    | UHK946 |                            4 | 105.0             |
+| María  Rodríguez        | BOA229 |                            3 | 100.0             |
+| Luis Fernando López     | YSR328 |                            1 | 150.0             |
+| Ana María Fernández     | CSU573 |                            2 | 110.0             |
+| Carlos  Pérez           | OOO529 |                            2 | 190.0             |
+| Laura Isabel Sánchez    | LPS177 |                            2 | 95.0              |
+| José Miguel Martínez    | NFV108 |                            1 | 150.0             |
+| Marta  Gómez            | JQT791 |                            1 | 150.0             |
+| Pedro Antonio Ruiz      | GRU810 |                            2 | 110.0             |
+| Lucía  Díaz             | YYP173 |                            4 | 150.0             |
+| Juan Carlos González    | OBN836 |                            2 | 95.0              |
+| María Elena Rodríguez   | JSW375 |                            3 | 133.3             |
+| Luis Miguel López       | BSA281 |                            3 | 160.0             |
+| Ana Lucía Fernández     | TOO924 |                            1 | 130.0             |
+| Carlos Andrés Pérez     | HXC839 |                            1 | 150.0             |
+| Laura Paola Sánchez     | XYZ123 |                            1 | 90.0              |
+| José  Martínez          | ABC456 |                            1 | 130.0             |
+| Marta Isabel Gómez      | DEF789 |                            2 | 125.0             |
+| Pedro Alejandro Ruiz    | GHI012 |                            2 | 90.0              |
+| Lucía María Díaz        | JKL345 |                            1 | 150.0             |
+| Juan  González          | MNO678 |                            2 | 85.0              |
+| María Luisa Rodríguez   | PQR901 |                            2 | 175.0             |
+| Luis Antonio López      | STU234 |                            1 | 150.0             |
+| Ana María Fernández     | VWX567 |                            5 | 104.0             |
+| Carlos José Pérez       | YZA890 |                            2 | 90.0              |
++-------------------------+--------+------------------------------+-------------------+</pre>
+## Explicacion:
+<pre>
+<strong>
+Utilice funciones de agrgacion en esta tabla, generando una escalera de JOINs que me permita moverme entre diferentes tablas
+</strong>
+</pre>
 
-14. Calcular el promedio de costo de reparaciones por vehículo
+15. Obtener el inventario de piezas por proveedor
+
+~~~~mysql
+SELECT  EM.NIT AS Provedor,
+        RP.nombre_pieza AS Nombre,
+        INV.stock AS STOCK_Pieza_INV
+FROM provedor AS EM
+INNER JOIN marcapieza AS MP ON EM.id_marca_pieza = MP.id_marca_pieza
+INNER JOIN inventario AS INV ON MP.id_marca_pieza = INV.id_marca_pieza
+INNER JOIN repuestopieza AS RP ON INV.id_pieza = RP.id_pieza;
+~~~~
+## Resultado:
+<pre>+----------+-------------------------------------+-----------------+
+| Provedor | Nombre                              | STOCK_Pieza_INV |
++----------+-------------------------------------+-----------------+
+| X678901X | Convertidor de par                  |              15 |
+| X678901X | Motor de arranque                   |              15 |
+| X678901X | Volante                             |               2 |
+| X678901X | Altavoces                           |              45 |
+| X023456X | Pastillas de freno                  |              20 |
+| X023456X | Evaporador                          |              18 |
+| X023456X | Llantas                             |              18 |
+| X023456X | Válvula de transmisión              |              18 |
+| X230956X | Cigüeñal                            |              30 |
+| X230956X | Termostato                          |              22 |
+| X230956X | Luces traseras                      |              15 |
+| X230956X | Líquido de frenos                   |              15 |
+| X230956X | Limpiador de inyectores             |              15 |
+| X034567X | Bombas de freno                     |              50 |
+| X034567X | Condensador                         |              22 |
+| X034567X | Tapacubos                           |              22 |
+| X034567X | Solenoide de transmisión            |              22 |
+| X789012X | Silenciador                         |              10 |
+| X789012X | Inyector de combustible             |              18 |
+| X789012X | Espejos retrovisores                |              20 |
+| X789012X | Bomba de dirección asistida         |              20 |
+| X305678X | Amortiguadores                      |              10 |
+| X305678X | Parachoques                         |              12 |
+| X305678X | Airbags                             |              12 |
+| X305678X | Compresor de suspensión neumática   |              12 |
+| X345678X | Bujías                              |              40 |
+| X345678X | Bomba de agua                       |              35 |
+| X345678X | Intermitentes                       |              25 |
+| X345678X | Refrigerante                        |              25 |
+| X345678X | Anticongelante                      |              25 |
+| X456789X | Muelles de suspensión               |              25 |
+| X456789X | Guardabarros                        |              25 |
+| X456789X | Cinturones de seguridad             |              25 |
+| X456789X | Amortiguador neumático              |              25 |
+| X890123X | Catalizador                         |              35 |
+| X890123X | Bomba de combustible                |              20 |
+| X890123X | Sensores de estacionamiento         |              30 |
+| X890123X | Manguera de dirección               |              30 |
+| X567890X | Brazos de suspensión                |              30 |
+| X567890X | Parabrisas                          |              30 |
+| X567890X | Sistemas de alarma                  |              30 |
+| X567890X | Válvula de suspensión               |              30 |
+| X406789X | Caja de cambios                     |              20 |
+| X406789X | Alternador                          |              20 |
+| X406789X | Asientos                            |              50 |
+| X406789X | Radio                               |              50 |
+| X901234X | Tubos de escape                     |              12 |
+| X901234X | Filtro de combustible               |              40 |
+| X901234X | Portaequipajes                      |              25 |
+| X901234X | Líquido de dirección asistida       |              25 |
+| X567490X | Embrague                            |              25 |
+| X567490X | Batería                             |              25 |
+| X567490X | Alfombras                           |              10 |
+| X567490X | Sistema de navegación GPS           |              10 |
+| X233567X | Discos de freno                     |              45 |
+| X233567X | Compresor de aire acondicionado     |              30 |
+| X233567X | Neumáticos                          |              35 |
+| X233567X | Convertidor de par                  |              35 |
+| X133456X | Bloque de motor                     |              50 |
+| X133456X | Radiador                            |              60 |
+| X133456X | Faros delanteros                    |              20 |
+| X133456X | Aceite de motor                     |              20 |
+| X133456X | Aceite de transmisión               |              20 |
++----------+-------------------------------------+-----------------+
+</pre>
+## Explicacion:
+<pre>
+<strong>
+Utilice el stock actual del inventario para generar la consulta por medio de JOINs haciendo con sus respectivas PK y FK
+</strong>
+</pre>
+16. Listar los clientes que no han realizado reparaciones en el último año
+~~~~mysql
+SELECT  
+CONCAT(EM.nombre1, ' ', COALESCE(EM.nombre2, ''), ' ', COALESCE(EM.apellido1, '')) AS Cliente,
+HR.id_vehiculo AS PLACA,
+HR.fecha_ejecucion AS Ultima_Reparacion
+FROM cliente AS EM
+INNER JOIN vehiculo AS V ON EM.id_vehiculo = V.id_vehiculo
+INNER JOIN historiareparacion AS HR ON V.id_vehiculo = HR.id_vehiculo
+WHERE HR.fecha_ejecucion < DATE_SUB(CURDATE(), INTERVAL 1 YEAR);
+~~~~
+## Resultado:
+<pre>+------------------------+--------+---------------------+
+| Cliente                | PLACA  | Ultima_Reparacion   |
++------------------------+--------+---------------------+
+| Luis Miguel López      | BSA281 | 2022-02-09 09:00:00 |
+| Pedro Alejandro Ruiz   | GHI012 | 2023-06-06 13:15:00 |
+| Juan  González         | MNO678 | 2022-08-22 07:45:00 |
+| Laura Paola Sánchez    | XYZ123 | 2015-07-01 14:00:00 |
+| Lucía María Díaz       | JKL345 | 2023-04-06 10:00:00 |
+| Juan Carlos González   | OBN836 | 2023-01-12 09:15:00 |
+| Marta  Gómez           | JQT791 | 2018-09-09 10:30:00 |
+| Luis Antonio López     | STU234 | 2023-03-12 11:45:00 |
+| Ana Lucía Fernández    | TOO924 | 2018-05-09 09:00:00 |
+| José Miguel Martínez   | NFV108 | 2014-12-02 12:30:00 |
++------------------------+--------+---------------------+
+</pre>
+## Explicacion:
+<pre>
+<strong>
+Aca utilice la sentencia DATE_SUB que utilizo para restar el año del mismo con INTERVAL y por medio este sacar el ultimos años donde no se han realizado en el ultimo Año
+</strong>
+</pre>
+17. Obtener las ganancias totales del taller en un período específico
+~~~~mysql
+SELECT  
+        SUM(FV.total_servicio) AS Total_ingresos_2024
+FROM historiareparacion AS HR
+INNER JOIN vista_factura_detalles AS FV ON HR.id_vehiculo = FV.`PLACA`
+WHERE HR.fecha_ejecucion BETWEEN '2024-01-01' AND '2024-12-31';
+~~~~
+## Resultado:
+<pre>+---------------------+
+| Total_ingresos_2024 |
++---------------------+
+|             2810.00 |
++---------------------+
+</pre>
+## Explicacion:
+<pre>
+<strong>
+Utilice la vista que cree donde consulto la fecha y genero un BETWEEN para que por medio de este me genere un intervalo de fechas
+</strong>
+</pre>
+18. Listar los empleados y el total de horas trabajadas en reparaciones en un
+período específico (asumiendo que se registra la duración de cada reparación)
+
+~~~~mysql
+WITH tiempo_trabajado_X_empleado AS(
+    SELECT   CONCAT(EM.nombre1, ' ', COALESCE(EM.nombre2, ''), ' ', COALESCE(EM.apellido1, '')) AS Empleado, 
+        EM.`DNI_empleado` AS Empleado_DNI,
+        ABS(SUM(TIMESTAMPDIFF(HOUR, HR.fecha_ejecucion, HR.fecha_finalizacion ))) AS Horas_JOB,
+        ABS(SUM(DATEDIFF(HR.fecha_ejecucion, HR.fecha_finalizacion))) AS Dias_JOB
+FROM empleado AS EM
+INNER JOIN historia_empelado AS HE ON EM.`DNI_empleado` = HE.`DNI_empleado`
+INNER JOIN historiareparacion AS HR ON HE.id_historia_reparacion = HR.id_historia_reparacion
+WHERE YEAR(HR.fecha_ejecucion) = 2024
+GROUP BY Empleado, Empleado_DNI
+)
+SELECT FORMAT((Horas_JOB / 8),0) AS Turnos_X_Dia, Horas_JOB, Empleado
+FROM tiempo_trabajado_X_empleado;
+~~~~
+## Resultado:
+<pre>+--------------+-----------+------------------------------+
+| Turnos_X_Dia | Horas_JOB | Empleado                     |
++--------------+-----------+------------------------------+
+| 10           |        76 | Ana Luisa Rodríguez          |
+| 13           |       100 | David Alejandro González     |
+| 19           |       148 | Gabriel Alejandro Hernández  |
+| 10           |        80 | Javier Andrés Ramírez        |
+| 37           |       296 | Luis Miguel González         |
+| 39           |       315 | Laura María Sánchez          |
+| 13           |       104 | Luisa  García                |
+| 22           |       172 | Marco Ausencio Ramírez       |
+| 1            |         4 | María Isabel Gómez           |
+| 19           |       151 | Marcela  Fernández           |
+| 39           |       315 | Pedro Antonio Martínez       |
+| 13           |       100 | Patricio Medina Garcia       |
+| 22           |       172 | Patricia María Ramírez       |
+| 13           |       104 | Raul Luis Rodríguez          |
+| 0            |         3 | Sofía  Hernández             |
++--------------+-----------+------------------------------+
+</pre>
+## Explicacion:
+<pre>
+<strong>
+Utilice una diferencia de fechas donde aparer
+</strong>
+</pre>
+
+
+~~~~mysql
+
+~~~~
+## Resultado:
+
+## Explicacion:
+<pre>
+<strong>
+
+</strong>
+</pre>

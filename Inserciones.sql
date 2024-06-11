@@ -1,4 +1,4 @@
--- Inserciones a la tabla marca Vehiculo
+USE  DB_automotrizGomez;
 INSERT INTO marcavehiculo (id_marca, nombre) VALUES
 (1, 'Toyota'),
 (2, 'Honda'),
@@ -822,3 +822,26 @@ INSERT INTO empleadotelefono (DNI_empleado, id_telefono_global) VALUES
 ('AIM913R', 58),
 ('GAH371S', 59),
 ('LXG798T', 60);
+
+
+
+
+UPDATE cita
+SET DNI_cliente = '00000021'
+WHERE id_cita = 'CITA01';
+
+UPDATE cita
+SET DNI_cliente = '00000014'
+WHERE id_cita = 'CITA02';
+
+DELETE FROM `inventario` WHERE `id_inventario` IN ('INV064','INV065','INV066','INV067','INV068','INV069','INV070');
+
+
+UPDATE inventario
+SET stock = 2
+WHERE id_inventario = 'INV036';
+
+
+UPDATE historiareparacion
+set fecha_finalizacion = '2024-09-25 13:00:00'
+WHERE id_historia_reparacion = 11;
