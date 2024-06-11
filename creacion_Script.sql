@@ -28,10 +28,8 @@ CREATE TABLE factura (
     id_factura INT PRIMARY KEY,
     DNI_cliente VARCHAR(16) NOT NULL,
     fecha DATE NOT NULL,
-    total DECIMAL(10,2),
     Foreign Key (DNI_cliente) REFERENCES cliente(DNI_cliente)
 );
-
 CREATE TABLE tipocargoempleado (
     id_tipo_cargo INT PRIMARY KEY,
     nombre_cargo VARCHAR(100) NOT NULL
@@ -64,6 +62,7 @@ CREATE TABLE marcapieza (
     id_marca_pieza INT PRIMARY KEY,
     nombre VARCHAR(200) NOT NULL
 );
+SELECT * FROM marcapieza
 
 CREATE TABLE provedor (
     DNI_provedor INT(10) PRIMARY KEY,
@@ -84,15 +83,19 @@ CREATE TABLE repuestopieza (
     id_pieza INT PRIMARY KEY,
     id_categoria INT NOT NULL,
     nombre_pieza VARCHAR(50) NOT NULL,
-    Foreign Key (id_categoria) REFERENCES categoriarepuesto (id_categoria)
+    precio_unidad DECIMAL(10,2) NOT NULL,
+    Foreign Key (id_categoria) REFERENCES categoriarepuesto(id_categoria)
 );
+
+
+
 
 CREATE TABLE ordencompra (
     id_orden INT PRIMARY KEY,
     fecha_orden DATETIME NOT NULL,
     DNI_provedor INT(10) NOT NULL,
     DNI_empleado VARCHAR(16) NOT NULL,
-    total DECIMAL(15, 2) NOT NULL,
+    total DECIMAL(15, 2),
     Foreign Key (DNI_provedor) REFERENCES provedor (DNI_provedor),
     Foreign Key (DNI_empleado) REFERENCES empleado (DNI_empleado)
 );
@@ -154,6 +157,7 @@ CREATE TABLE servico (
     Foreign Key (id_tipo_servicio) REFERENCES tiposervicio(id_tipo_servicio),
     Foreign Key (id_taller) REFERENCES areataller(id_taller)
 );
+
 CREATE TABLE servicio_reparacion(
     id_servicio_reparacion INT PRIMARY KEY,
     id_servicio INT NOT NULL,
@@ -161,17 +165,30 @@ CREATE TABLE servicio_reparacion(
     Foreign Key (id_servicio) REFERENCES servico(id_servicio),
     Foreign Key (id_historia_reparacion) REFERENCES historiareparacion(id_historia_reparacion)
 );
+CREATE TABLE estadocita(
+    id_esta_cita INT PRIMARY KEY,
+    estado_cita VARCHAR(50)
+);
 
-CREATE TABLE DetalleFactura (
-    id INT PRIMARY KEY,
+CREATE TABLE cita(
+    id_cita VARCHAR(6) PRIMARY KEY,
+    DNI_cliente VARCHAR(16) NOT NULL,
+    id_vehiculo VARCHAR(6) NOT NULL,
+    id_servicio INT,
+    fecha_cita DATETIME,
+    id_esta_cita INT NOT NULL,
+    Foreign Key (id_esta_cita) REFERENCES estadocita(id_esta_cita),
+    Foreign Key (id_servicio) REFERENCES servico(id_servicio)
+); 
+
+
+CREATE TABLE detallefactura(
     id_servicio_reparacion INT NOT NULL,
     id_factura INT,
-    producto_id INT,
-    cantidad INT,
-    precio DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (id_factura) REFERENCES factura(id_factura),
     Foreign Key (id_servicio_reparacion) REFERENCES servicio_reparacion(id_servicio_reparacion)
 );
+
 
 CREATE TABLE provedortelefono(
     DNI_provedor INT(10),
@@ -194,4 +211,33 @@ CREATE TABLE empleadotelefono(
     Foreign Key (DNI_empleado) REFERENCES empleado(DNI_empleado)
 );
 
-SHOW TABLEs;
+-- ========================================================================
+                        -- CRECION VISTAS
+-- ========================================================================
+
+CREATE VIEW Vista_factura_detalles AS
+SELECT 
+EM.DNI_cliente AS DNI,
+CONCAT(EM.nombre1, ' ', COALESCE(EM.nombre2, ''), ' ', COALESCE(EM.apellido1, '')) AS Cliente,
+VH.id_vehiculo AS PLACA , 
+COUNT(SR.id_historia_reparacion) AS Cantidad_servicos_adquiridos, 
+SUM(SV.costo) AS total_servicio
+FROM cliente AS EM
+INNER JOIN vehiculo AS V ON EM.id_vehiculo = V.id_vehiculo
+INNER JOIN historiareparacion AS VH ON V.id_vehiculo = VH.id_vehiculo
+INNER JOIN servicio_reparacion AS SR ON VH.id_historia_reparacion = SR.id_historia_reparacion
+INNER JOIN servico AS SV ON SR.id_servicio = SV.id_servicio
+GROUP BY PLACA , Cliente, DNI ;
+
+
+
+CREATE View incercion_factura_detalles AS
+SELECT VH.id_vehiculo AS PLACA, CL.`DNI_cliente`,SVR.id_servicio_reparacion, FAC.id_factura AS Factura_id
+FROM factura AS FAC
+INNER JOIN cliente AS CL ON FAC.`DNI_cliente` = CL.`DNI_cliente`
+INNER JOIN vehiculo AS VH ON CL.id_vehiculo = VH.id_vehiculo
+INNER JOIN historiareparacion AS HR ON VH.id_vehiculo = HR.id_vehiculo
+INNER JOIN servicio_reparacion AS SVR ON HR.id_historia_reparacion = SVR.id_historia_reparacion
+ORDER BY CL.DNI_cliente DESC , SVR.id_servicio_reparacion DESC;
+
+

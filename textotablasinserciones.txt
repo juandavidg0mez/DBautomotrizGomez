@@ -1,0 +1,101 @@
+aca es donde debe habar una relacion tambien 
+en la fecha y en el auto al que estamos apuntanto
+
+Informacion de la tabla historiareparacion:
+
+1 BOA229 1 2 2023-12-14 08:00:00 2023-12-30 12:00:00
+2 CSU573 5 1 2024-05-16 10:30:00 2024-05-19 15:00:00
+3 BSA281 10 4 2022-02-09 09:00:00 2022-02-15 13:45:00
+4 GHI012 15 2 2023-06-06 13:15:00 2023-06-15 17:30:00
+5 MNO678 32 3 2022-08-22 07:45:00 2022-08-30 11:00:00
+6 OOO529 32 2 2023-06-24 11:00:00 2023-06-30 14:30:00
+7 UHK946 30 1 2024-01-21 08:30:00 2024-01-21 12:45:00
+8 XYZ123 35 3 2015-07-01 14:00:00 2015-07-11 18:00:00
+9 YYP173 40 2 2023-12-16 10:15:00 2023-12-20 15:30:00
+10 GRU810 45 4 2024-03-12 12:45:00 2024-03-18 17:15:00
+11 PQR901 50 1 2024-09-12 09:30:00 2024-01-25 13:00:00
+12 ABC456 55 2 2024-09-16 08:00:00 2024-09-20 12:00:00
+13 YSR328 60 3 2024-01-23 11:30:00 2024-01-30 15:45:00
+14 JSW375 63 1 2024-01-28 13:00:00 2024-01-28 17:30:00
+15 HXC839 54 2 2024-09-17 08:45:00 2024-09-17 12:30:00
+16 JKL345 47 4 2023-04-06 10:00:00 2023-04-16 14:15:00
+17 OBN836 21 1 2023-01-12 09:15:00 2023-01-22 13:45:00
+18 YZA890 20 1 2023-11-03 07:30:00 2023-11-13 11:00:00
+19 DEF789 4 1 2024-02-26 12:00:00 2024-03-01 16:30:00
+20 JQT791 7 3 2018-09-09 10:30:00 2018-09-19 14:45:00
+21 LPS177 11 6 2023-11-12 08:15:00 2023-11-22 12:45:00
+22 STU234 17 1 2023-03-12 11:45:00 2023-04-02 16:00:00
+23 TOO924 15 4 2018-05-09 09:00:00 2018-05-19 13:30:00
+24 NFV108 15 4 2014-12-02 12:30:00 2014-12-22 17:00:00
+25 VWX567 49 1 2024-10-16 08:00:00 2024-10-22 12:00:00
+
+informacion de la tabla servico: 
+
+1 2 1 Servicio de recepción y atención al cliente 50.00
+2 2 2 Servicio de diagnóstico y evaluación inicial 100.00
+3 3 3 Servicio de mantenimiento de motor y componentes 150.00
+4 4 4 Servicio de diagnóstico y reparación eléctrica 120.00
+5 5 5 Servicio de revisión y reparación de transmisiones 200.00
+6 6 6 Servicio de revisión y reparación de frenos y suspensión 180.00
+7 7 7 Servicio de alineación y balanceo de ruedas 80.00
+8 8 8 Servicio de cambio de aceite y lubricantes 70.00
+9 9 9 Servicio de reparación y pintura de carrocería 250.00
+10 10 6 Servicio de reparación y reemplazo de vidrios y cristales 130.00
+11 11 6 Servicio de instalación de accesorios y personalización 150.00
+12 12 1 Servicio de inspección y certificación vehicular 90.00
+
+Debemos tener encuenta que esta es una relacion de muchos a muucho y 
+un servicio puede estar en varias reparaciones y una reparacion puede contener
+varios servicios dame las inerciones correspondientes para esta tabla:
+CREATE TABLE servicio_reparacion(
+    id_servicio_reparacion INT PRIMARY KEY,
+    id_servicio INT NOT NULL,
+    id_historia_reparacion INT NOT NULL,
+    Foreign Key (id_servicio) REFERENCES servico(id_servicio),
+    Foreign Key (id_historia_reparacion) REFERENCES historiareparacion(id_historia_reparacion)
+);
+
+-- Crear una vista o una tabla temporar que me almacene o me de un backup de la citas ya hechas yq qeu fueron ya coonfirmadas o hechas
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS generar_factura;
+CREATE PROCEDURE generar_factura()
+BEGIN
+-- Creacion de una tabla temporal
+CREATE TEMPORARY TABLE IF NOT EXISTS temp_resultados (
+    DNI VARCHAR(16),
+    Cliente VARCHAR(200),
+    PLACA VARCHAR(6),
+    Cantidad_servicos INT,
+    Fecha_Fact DATE,
+    Total DECIMAL(10,2)
+
+);
+
+-- insertar los resultados de la consulta y los envia a la tabla temporal
+
+INSERT INTO temp_resultados (DNI, Cliente, PLACA, Cantidad_servicos, Fecha_Fact, Total)
+
+-- Creacion de la consulta
+SELECT  VF.DNI AS DNI,
+        VF.Cliente AS Cliente, 
+        VF.PLACA AS PLACA,
+        VF.Cantidad_servicos_adquiridos AS Cantidad_servicos,
+        F.fecha AS Fecha_Fact,
+        VF.total_servicio AS Total
+FROM vista_factura_detalles AS VF
+INNER JOIN factura AS F ON VF.DNI = F.DNI_cliente;
+
+-- seleccion de la consulta
+
+SELECT * FROM temp_resultados;
+
+-- Eliminacion Tabla temporal 
+
+DROP TEMPORARY TABLE IF EXISTS temp_resultados;
+END$$
+
+
+DELIMITER ;
+CALL generar_factura();
