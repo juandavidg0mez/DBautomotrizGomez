@@ -657,7 +657,7 @@ CREATE PROCEDURE servicios_solicitados(
     IN aino INT
 )
 BEGIN
-    WITH servio_X_solicitado AS (
+WITH servio_X_solicitado AS (
             SELECT  S.descrip AS Descrip_servicio,
                     COUNT(SR.id_servicio) AS Cant_Servios_X_Servicio,
                     HR.fecha_ejecucion AS fecha_ejecucion
@@ -665,7 +665,7 @@ BEGIN
             INNER JOIN servicio_reparacion AS SR ON S.id_servicio = SR.id_servicio
             INNER JOIN historiareparacion AS HR ON SR.id_historia_reparacion = HR.id_historia_reparacion
             WHERE   YEAR(HR.fecha_ejecucion) = aino
-            GROUP BY Descrip_servicio
+            GROUP BY Descrip_servicio, fecha_ejecucion
 )
 SELECT Cant_Servios_X_Servicio, Descrip_servicio
 FROM servio_X_solicitado
