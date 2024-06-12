@@ -685,19 +685,651 @@ FROM tiempo_trabajado_X_empleado;
 ## Explicacion:
 <pre>
 <strong>
-Utilice una diferencia de fechas donde aparer
+Utilice una diferencia de fechas donde donde divido las horas en turnos de 8 horas y de ahi identifico que turnos hizo la persona 
 </strong>
 </pre>
-
-
+19. Obtener el listado de servicios prestados por cada empleado en un período
+específico
 ~~~~mysql
-
+SELECT SR.descrip AS Descripcion_Servicio,
+CONCAT(EM.nombre1, ' ', COALESCE(EM.nombre2, ''), ' ', COALESCE(EM.apellido1, '')) AS Empleado,
+TEM.nombre_cargo AS Cargo_Empleado,
+EM.`DNI_empleado`
+FROM tiposervicio AS TS
+INNER JOIN servico AS SR ON TS.id_tipo_servicio = SR.id_tipo_servicio
+INNER JOIN servicio_reparacion AS SP ON SR.id_servicio = SP.id_servicio
+INNER JOIN historiareparacion AS HR ON SP.id_historia_reparacion = HR.id_historia_reparacion
+INNER JOIN historia_empelado AS HM ON HR.id_historia_reparacion = HM.id_historia_reparacion
+INNER JOIN empleado AS EM ON HM.DNI_empleado = EM.DNI_empleado
+INNER JOIN tipocargoempleado AS TEM ON EM.id_tipo_cargo = TEM.id_tipo_cargo
+WHERE YEAR(HR.fecha_ejecucion) = 2024;
 ~~~~
 ## Resultado:
-
+<pre>
++-------------------------------------------------------------+------------------------------+--------------------------------------+--------------+
+| Descripcion_Servicio                                        | Empleado                     | Cargo_Empleado                       | DNI_empleado |
++-------------------------------------------------------------+------------------------------+--------------------------------------+--------------+
+| Servicio de diagnóstico y evaluación inicial                | Ana Luisa Rodríguez          | Técnico en Suspensión y Dirección    | ALR321D      |
+| Servicio de diagnóstico y evaluación inicial                | Javier Andrés Ramírez        | Mecánico de Carrocería               | JAR919Q      |
+| Servicio de diagnóstico y evaluación inicial                | Javier Andrés Ramírez        | Mecánico de Carrocería               | JAR919Q      |
+| Servicio de diagnóstico y evaluación inicial                | Luisa  García                | Lavador de Autos                     | LXG798T      |
+| Servicio de diagnóstico y evaluación inicial                | Luis Miguel González         | Mecánico de Motor                    | LMG987O      |
+| Servicio de diagnóstico y evaluación inicial                | Marcela  Fernández           | Mecánico de Motor                    | MXF824P      |
+| Servicio de diagnóstico y evaluación inicial                | Laura María Sánchez          | Recepcionista y Atención al Cliente  | LMS456H      |
+| Servicio de diagnóstico y evaluación inicial                | Pedro Antonio Martínez       | Electricista Automotriz              | PAM789C      |
+| Servicio de diagnóstico y evaluación inicial                | María Isabel Gómez           | Mecánico de Carrocería               | MIG456B      |
+| Servicio de diagnóstico y evaluación inicial                | Raul Luis Rodríguez          | Técnico en Suspensión y Dirección    | RLR789E      |
+| Servicio de diagnóstico y evaluación inicial                | Raul Luis Rodríguez          | Técnico en Suspensión y Dirección    | RLR789E      |
+| Servicio de diagnóstico y evaluación inicial                | David Alejandro González     | Gerente de Taller                    | DAG145I      |
+| Servicio de diagnóstico y evaluación inicial                | Gabriel Alejandro Hernández  | Lavador de Autos                     | GAH371S      |
+| Servicio de diagnóstico y evaluación inicial                | Luis Miguel González         | Mecánico de Motor                    | LMG987O      |
+| Servicio de mantenimiento de motor y componentes            | Raul Luis Rodríguez          | Técnico en Suspensión y Dirección    | RLR789E      |
+| Servicio de mantenimiento de motor y componentes            | David Alejandro González     | Gerente de Taller                    | DAG145I      |
+| Servicio de mantenimiento de motor y componentes            | Gabriel Alejandro Hernández  | Lavador de Autos                     | GAH371S      |
+| Servicio de mantenimiento de motor y componentes            | Luis Miguel González         | Mecánico de Motor                    | LMG987O      |
+| Servicio de diagnóstico y reparación eléctrica              | Ana Luisa Rodríguez          | Técnico en Suspensión y Dirección    | ALR321D      |
+| Servicio de diagnóstico y reparación eléctrica              | Javier Andrés Ramírez        | Mecánico de Carrocería               | JAR919Q      |
+| Servicio de diagnóstico y reparación eléctrica              | Luis Miguel González         | Mecánico de Motor                    | LMG987O      |
+| Servicio de diagnóstico y reparación eléctrica              | Marcela  Fernández           | Mecánico de Motor                    | MXF824P      |
+| Servicio de diagnóstico y reparación eléctrica              | María Isabel Gómez           | Mecánico de Carrocería               | MIG456B      |
+| Servicio de diagnóstico y reparación eléctrica              | Raul Luis Rodríguez          | Técnico en Suspensión y Dirección    | RLR789E      |
+| Servicio de diagnóstico y reparación eléctrica              | Gabriel Alejandro Hernández  | Lavador de Autos                     | GAH371S      |
+| Servicio de diagnóstico y reparación eléctrica              | Luis Miguel González         | Mecánico de Motor                    | LMG987O      |
+| Servicio de revisión y reparación de frenos y suspensión    | María Isabel Gómez           | Mecánico de Carrocería               | MIG456B      |
+| Servicio de revisión y reparación de frenos y suspensión    | Raul Luis Rodríguez          | Técnico en Suspensión y Dirección    | RLR789E      |
+| Servicio de alineación y balanceo de ruedas                 | Javier Andrés Ramírez        | Mecánico de Carrocería               | JAR919Q      |
+| Servicio de alineación y balanceo de ruedas                 | Luisa  García                | Lavador de Autos                     | LXG798T      |
+| Servicio de alineación y balanceo de ruedas                 | Gabriel Alejandro Hernández  | Lavador de Autos                     | GAH371S      |
+| Servicio de alineación y balanceo de ruedas                 | Luis Miguel González         | Mecánico de Motor                    | LMG987O      |
+| Servicio de cambio de aceite y lubricantes                  | Gabriel Alejandro Hernández  | Lavador de Autos                     | GAH371S      |
+| Servicio de cambio de aceite y lubricantes                  | Luis Miguel González         | Mecánico de Motor                    | LMG987O      |
+| Servicio de reparación y pintura de carrocería              | Laura María Sánchez          | Recepcionista y Atención al Cliente  | LMS456H      |
+| Servicio de reparación y pintura de carrocería              | Pedro Antonio Martínez       | Electricista Automotriz              | PAM789C      |
+| Servicio de reparación y reemplazo de vidrios y cristales   | Luisa  García                | Lavador de Autos                     | LXG798T      |
+| Servicio de reparación y reemplazo de vidrios y cristales   | Patricio Medina Garcia       | Mecanico patinador                   | PMG789N      |
+| Servicio de instalación de accesorios y personalización     | Javier Andrés Ramírez        | Mecánico de Carrocería               | JAR919Q      |
+| Servicio de instalación de accesorios y personalización     | Luisa  García                | Lavador de Autos                     | LXG798T      |
+| Servicio de instalación de accesorios y personalización     | Marco Ausencio Ramírez       | Mecanico patinador                   | MAR741M      |
+| Servicio de instalación de accesorios y personalización     | Patricia María Ramírez       | Mecanico patinador                   | PMR852L      |
+| Servicio de instalación de accesorios y personalización     | Marcela  Fernández           | Mecánico de Motor                    | MXF824P      |
+| Servicio de instalación de accesorios y personalización     | Sofía  Hernández             | Lavador de Autos                     | SXH736J      |
+| Servicio de inspección y certificación vehicular            | Javier Andrés Ramírez        | Mecánico de Carrocería               | JAR919Q      |
+| Servicio de inspección y certificación vehicular            | Luisa  García                | Lavador de Autos                     | LXG798T      |
++-------------------------------------------------------------+------------------------------+--------------------------------------+--------------+
+</pre>
 ## Explicacion:
 <pre>
 <strong>
+Cree una cadena de JOINs donde por medio de este llegue a un resultado de los servicios adquiridos
+</strong>
+</pre>
 
+## SubConsultas
+1. Obtener el cliente que ha gastado más en reparaciones durante el último año.
+~~~~mysql
+SELECT MAX(VF.total_servicio) AS Max_gasto , 
+HR.fecha_ejecucion AS Fecha, 
+VF.cliente AS Nombre_cliente
+FROM vista_factura_detalles AS VF
+INNER JOIN historiareparacion AS HR ON VF.`PLACA` = HR.id_vehiculo
+GROUP BY fecha, Nombre_cliente
+HAVING YEAR(HR.fecha_ejecucion) = 2024;
+~~~~
+## Resultado:
+<pre>
++-----------+---------------------+-------------------------+
+| Max_gasto | Fecha               | Nombre_cliente          |
++-----------+---------------------+-------------------------+
+|    130.00 | 2024-09-16 08:00:00 | José  Martínez          |
+|    220.00 | 2024-05-16 10:30:00 | Ana María Fernández     |
+|    250.00 | 2024-02-26 12:00:00 | Marta Isabel Gómez      |
+|    220.00 | 2024-03-12 12:45:00 | Pedro Antonio Ruiz      |
+|    400.00 | 2024-01-28 13:00:00 | María Elena Rodríguez   |
+|    350.00 | 2024-09-12 09:30:00 | María Luisa Rodríguez   |
+|    150.00 | 2024-06-16 08:00:00 | Luis Antonio López      |
+|    420.00 | 2024-01-21 08:30:00 | Juan Carlos González    |
+|    520.00 | 2024-10-16 08:00:00 | Ana María Fernández     |
+|    150.00 | 2024-01-23 11:30:00 | Luis Fernando López     |
++-----------+---------------------+-------------------------+
+</pre>
+## Explicacion:
+<pre>
+<strong>
+Utilizo la vista creada previamente para generar una mejor consulta donde por medio de esta puedo seleccionar los caampos necesarios y hacer una subconsulta mucho mas clara de la misma 
+</strong>
+</pre>
+
+2. Obtener la pieza más utilizada en reparaciones durante el último mes
+
+~~~~mysql
+WITH tem_query AS (
+    SELECT
+        COUNT(HR.id_pieza) AS Cantidad_X_Reparcion,
+        RP.nombre_pieza AS Nombre,
+        HR.fecha_ejecucion AS Fecha
+    FROM historiareparacion AS HR
+    INNER JOIN repuestopieza AS RP ON HR.id_pieza = RP.id_pieza
+    GROUP BY Nombre, Fecha
+    HAVING MONTH(HR.fecha_ejecucion) = 5 AND YEAR(HR.fecha_ejecucion) = 2024
+)
+SELECT 
+    Cantidad_X_Reparcion, Nombre, Fecha
+FROM 
+    tem_query
+WHERE Cantidad_X_Reparcion = (SELECT MAX(Cantidad_X_Reparcion) FROM tem_query)
+GROUP BY Nombre, Fecha;
+~~~~
+## Resultado:
+<pre>
++----------------------+----------+---------------------+
+| Cantidad_X_Reparcion | Nombre   | Fecha               |
++----------------------+----------+---------------------+
+|                    1 | Embrague | 2024-05-16 10:30:00 |
++----------------------+----------+---------------------+
+</pre>
+## Explicacion:
+<pre>
+<strong>
+Utilizo la sentencia WITH para preparar una consulta temporar donde almaceno unos daatos y de este mismo puedo consultar, esto genera que la consulta sea mcuho mas clara a la hora de leerse
+</strong>
+</pre>
+3. Obtener los proveedores que suministran las piezas más caras
+~~~~mysql
+WITH precio_MAX AS (
+    SELECT  EM.NIT AS Provedor,
+        RP.nombre_pieza AS Nombre,
+        INV.stock AS STOCK_Pieza_INV,
+        RP.precio_unidad AS Precio_unidad
+FROM provedor AS EM
+INNER JOIN marcapieza AS MP ON EM.id_marca_pieza = MP.id_marca_pieza
+INNER JOIN inventario AS INV ON MP.id_marca_pieza = INV.id_marca_pieza
+INNER JOIN repuestopieza AS RP ON INV.id_pieza = RP.id_pieza
+)
+SELECT Precio_unidad, Nombre
+FROM precio_MAX
+WHERE Precio_unidad = (SELECT MAX(precio_unidad) FROM precio_MAX);
+~~~~
+## Resultado:
+<pre>
++---------------+-----------------+
+| Precio_unidad | Nombre          |
++---------------+-----------------+
+|       1200.00 | Caja de cambios |
++---------------+-----------------+
+</pre>
+## Explicacion:
+<pre>
+<strong>
+Utilizo el mismo metodo que la anterior consulta en este caso utilizando una cadena de JOINS que me permite a pasar por la diferentes tablas para llegar al resultado deseado
+</strong>
+</pre>
+4. Listar las reparaciones que no utilizaron piezas específicas durante el último
+año
+~~~~mysql
+SELECT
+        RP.nombre_pieza AS Nombre
+    FROM historiareparacion AS HR
+    RIGHT JOIN repuestopieza AS RP ON HR.id_pieza = RP.id_pieza
+    WHERE HR.fecha_ejecucion is NULL;
+~~~~
+## Resultado:
+<pre>
++-------------------------------------+
+| Nombre                              |
++-------------------------------------+
+| Cigüeñal                            |
+| Bujías                              |
+| Convertidor de par                  |
+| Catalizador                         |
+| Tubos de escape                     |
+| Bombas de freno                     |
+| Amortiguadores                      |
+| Muelles de suspensión               |
+| Radiador                            |
+| Bomba de agua                       |
+| Alternador                          |
+| Inyector de combustible             |
+| Bomba de combustible                |
+| Filtro de combustible               |
+| Compresor de aire acondicionado     |
+| Evaporador                          |
+| Condensador                         |
+| Parachoques                         |
+| Guardabarros                        |
+| Faros delanteros                    |
+| Intermitentes                       |
+| Asientos                            |
+| Volante                             |
+| Espejos retrovisores                |
+| Sensores de estacionamiento         |
+| Portaequipajes                      |
+| Llantas                             |
+| Tapacubos                           |
+| Airbags                             |
+| Cinturones de seguridad             |
+| Aceite de motor                     |
+| Refrigerante                        |
+| Altavoces                           |
+| Bomba de dirección asistida         |
+| Manguera de dirección               |
+| Válvula de transmisión              |
+| Solenoide de transmisión            |
+| Compresor de suspensión neumática   |
+| Amortiguador neumático              |
+| Aceite de transmisión               |
+| Limpiador de inyectores             |
++-------------------------------------+
+</pre>
+## Explicacion:
+<pre>
+<strong>
+En este caso lo unico que hago es emplear LEFT JOIN que me permite listar los NULLs o los id_pieza que no estan en la tabla de las reparaciones hay otro metodo que me permite ver las puiezas que se han utilizado en reparaciones pero en el aino presente no se han vuelto a utilizar 
+</strong>
+</pre>
+~~~~mysql
+SELECT
+        RP.nombre_pieza AS Nombre,
+        HR.fecha_ejecucion AS Fecha
+    FROM historiareparacion AS HR
+    LEFT JOIN repuestopieza AS RP ON HR.id_pieza = RP.id_pieza
+    WHERE HR.fecha_ejecucion < DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+    GROUP BY Nombre, Fecha;
+~~~~
+5. Obtener las piezas que están en inventario por debajo del 10% del stock inicial
+
+~~~~mysql
+WITH lista_stock_pieza AS(
+    
+    SELECT
+        RP.nombre_pieza AS Nombre_pieza,
+        INV.stock AS STOCK
+FROM repuestopieza AS RP
+INNER JOIN inventario AS INV ON RP.id_pieza = INV.id_pieza
+)
+SELECT  STOCK, Nombre_pieza
+FROM lista_stock_pieza
+WHERE STOCK < (STOCK * 0.10);
+~~~~
+## Resultado:
+<pre>
+
+</pre>
+## Explicacion:
+<pre>
+<strong>
+En este caso puntual totas la piezas estan al dia en sus stock
+</strong>
+</pre>
+
+## Procedimientos Almacenados
+1. Crear un procedimiento almacenado para insertar una nueva reparación.
+~~~~mysql
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS insertar_producto;
+CREATE PROCEDURE insertar_producto(
+IN id_historia_reparacion INT,
+IN id_vehiculo VARCHAR(6),
+IN id_pieza INT,
+IN cantidad SMALLINT,
+IN fecha_ejecucion DATETIME,
+IN fecha_finalizacion DATETIME)
+BEGIN
+INSERT INTO historiareparacion(id_historia_reparacion, id_vehiculo, id_pieza, cantidad, fecha_ejecucion, fecha_finalizacion) VALUES
+(id_historia_reparacion, id_vehiculo, id_pieza, cantidad, fecha_ejecucion, fecha_finalizacion);
+END $$
+DELIMITER ;
+~~~~
+## Resultado:
+~~~~mysql
+CALL insertar_producto(26,'STU234',17,8,'2024-6-16 08:00:00','2024-6-22 12:00:00');
+~~~~
+## Explicacion:
+<pre>
+<strong>
+En este caso genero un procedimiento que me tome los parametros de los campos de la tabla donde queiro insertar nuevos datos asi mismo paso estos para hacer los cambios que necesito
+</strong>
+</pre>
+2. Crear un procedimiento almacenado para actualizar el inventario de una pieza.
+~~~~mysql
+DELIMITER $$
+DROP PROCEDURE IF EXISTS actualizar_INV_pieza;
+CREATE PROCEDURE actualizar_INV_pieza(
+    IN N_id_inventario VARCHAR(10),
+    IN N_id_pieza INT,
+    IN N_id_marca_pieza INT,
+    IN N_id_taller INT,
+    IN N_stock INT
+)
+BEGIN
+DECLARE mensaje VARCHAR(100);
+UPDATE  inventario
+SET
+    id_pieza =  N_id_pieza,
+    id_marca_pieza =  N_id_marca_pieza,
+    id_taller = N_id_taller,
+    stock = N_stock
+WHERE id_inventario = N_id_inventario;
+IF ROW_COUNT() > 0 THEN
+SET mensaje = CONCAT('El producto con ID ', N_id_inventario, ' ha sido
+actualizado exitosamente.');
+ELSE
+SET mensaje = 'No se encontró ningún producto con el ID proporcionado
+para actualizar.';
+END IF;
+SELECT mensaje AS 'Mensaje';
+END $$
+DELIMITER ;
+~~~~
+## Resultado:
+~~~~mysql
+CALL actualizar_INV_pieza('INV062', 61, 3 , 9, 12 );
+~~~~
+## Explicacion:
+<pre>
+<strong>
+Utilizo el mismo metodo de los parametros en este caso es actulizar un registro de las tablas de inventario 
+</strong>
+</pre>
+3. Crear un procedimiento almacenado para eliminar una cita
+~~~~mysql
+DELIMITER $$
+DROP PROCEDURE IF EXISTS eliminar_cita;
+CREATE PROCEDURE eliminar_cita(
+    IN id VARCHAR(6)
+)
+BEGIN
+DELETE FROM cita
+WHERE id_cita = id;
+    IF ROW_COUNT() > 0 THEN
+        SELECT 'Registro eliminado exitosamente' AS resultado;
+    ELSE
+        SELECT 'No se encontró el registro' AS resultado;
+    END IF;
+END$$
+DELIMITER ;
+~~~~
+## Resultado:
+~~~~mysql
+CALL eliminar_cita('CITA04');
+~~~~
+## Explicacion:
+<pre>
+<strong>
+Utilizo una forma basica de eliminar pero ahora en un procedimiento el cual toma como parametro el ID de lo que deo eliminar
+</strong>
+</pre>
+4. Crear un procedimiento almacenado para generar una factura
+~~~~mysql
+DELIMITER $$
+DROP PROCEDURE IF EXISTS generar_factura;
+CREATE PROCEDURE generar_factura(
+    IN codec_cliente VARCHAR(16)
+)
+BEGIN
+SELECT  VF.DNI AS DNI,
+        VF.Cliente AS Cliente, 
+        VF.PLACA AS PLACA,
+        VF.Cantidad_servicos_adquiridos AS Cantidad_servicos,
+        F.fecha AS Fecha_Fact,
+        VF.total_servicio AS Total
+FROM vista_factura_detalles AS VF
+INNER JOIN factura AS F ON VF.DNI = F.DNI_cliente
+WHERE VF.DNI = codec_cliente;
+END$$
+~~~~
+## Resultado:
+~~~~mysql
+CALL generar_factura('00000019');
+~~~~
+## Explicacion:
+<pre>
+<strong>
+Utilizo el recurso de la vista creada anterior mente donde me contiene los diferentes campos y el calculo de la cantidad y costo de cada servicio adquirido solo con pasar el ID del cliente puedo traer y listar la factura correspondiente
+</strong>
+</pre>
+5. Crear un procedimiento almacenado para obtener el historial de reparaciones
+de un vehículo
+~~~~mysql
+DELIMITER $$
+DROP PROCEDURE IF EXISTS repaciones_vehiculo;
+CREATE PROCEDURE repaciones_vehiculo(
+    IN codec_vehiculo VARCHAR(6)
+)
+BEGIN
+SELECT SR.descrip AS Descripcion, SR.costo AS Valor_Serviio
+FROM historiareparacion AS HR
+INNER JOIN servicio_reparacion AS  S_R ON HR.id_historia_reparacion = S_R.id_historia_reparacion
+INNER JOIN servico AS SR ON S_R.id_servicio = SR.id_servicio
+WHERE HR.id_vehiculo = codec_vehiculo;
+END$$
+DELIMITER ;
+~~~~
+## Resultado:
+~~~~mysql
+CALL repaciones_vehiculo('VWX567');
+
+~~~~
+## Explicacion:
+<pre>
+<strong>
+Consulto sobre la tabla que contiene el registro deseado y con ello utilizo el recurso de JOINS, esto genera que el procedimiento almacenado sea dinamico a la hora de ejecutarse
+</strong>
+</pre>
+6. Crear un procedimiento almacenado para calcular el costo total de
+reparaciones de un cliente en un período
+~~~~mysql
+DELIMITER $$
+DROP PROCEDURE IF EXISTS repaciones_vehiculo_aino;
+CREATE PROCEDURE repaciones_vehiculo_aino(
+    IN codec_cliente VARCHAR(16),
+    IN aino INT
+)
+BEGIN
+    DECLARE total_registros INT;
+
+    CREATE TEMPORARY TABLE IF NOT EXISTS temp_resultados (
+        DNI VARCHAR(16),
+        Cliente VARCHAR(255),
+        PLACA VARCHAR(20),
+        Cantidad_servicios_adquiridos INT,
+        total_servicio DECIMAL(10, 2)
+    );
+
+    INSERT INTO temp_resultados
+    SELECT 
+        EM.DNI_cliente AS DNI,
+        CONCAT(EM.nombre1, ' ', COALESCE(EM.nombre2, ''), ' ', COALESCE(EM.apellido1, '')) AS Cliente,
+        VH.id_vehiculo AS PLACA , 
+        COUNT(SR.id_historia_reparacion) AS Cantidad_servicos_adquiridos, 
+        SUM(SV.costo) AS total_servicio
+    FROM 
+        cliente AS EM
+    INNER JOIN 
+        vehiculo AS V ON EM.id_vehiculo = V.id_vehiculo
+    INNER JOIN 
+        historiareparacion AS VH ON V.id_vehiculo = VH.id_vehiculo
+    INNER JOIN 
+        servicio_reparacion AS SR ON VH.id_historia_reparacion = SR.id_historia_reparacion
+    INNER JOIN 
+        servico AS SV ON SR.id_servicio = SV.id_servicio
+    WHERE 
+        YEAR(VH.fecha_ejecucion) = aino AND EM.DNI_cliente = codec_cliente
+    GROUP BY 
+        PLACA, Cliente, DNI;
+
+
+    SELECT COUNT(*) INTO total_registros FROM temp_resultados;
+
+    
+    IF total_registros = 0 THEN
+        
+        SELECT 'No se encontraron reparaciones para el cliente especificado en el año especificado.' AS mensaje;
+    ELSE
+
+        SELECT * FROM temp_resultados;
+    END IF;
+
+    DROP TEMPORARY TABLE IF EXISTS temp_resultados;
+END;
+~~~~
+## Resultado:
+~~~~mysql
+CALL repaciones_vehiculo_aino('00000017', 2022);
+~~~~
+## Explicacion:
+<pre>
+<strong>
+Hago uso de las tablas temporales donde inserto los datos o resultados de una consulta
+</strong>
+</pre>
+
+8. Crear un procedimiento almacenado para insertar una nueva orden de compra
+~~~~mysql
+DELIMITER $$
+DROP PROCEDURE IF EXISTS insertar_nueva_compra;
+
+CREATE PROCEDURE insertar_nueva_compra(
+    -- parametros tabla orden compra
+    IN id_orden INT,
+    IN fecha_orden DATETIME,
+    IN DNI_provedor INT,
+    IN DNI_empleado VARCHAR(16),
+    -- parametros tabla detalles compra
+    IN id_detalle_orden INT,
+    iN id_orden_2 INT,
+    IN id_pieza INT,
+    IN cantidad SMALLINT,
+    IN precio DECIMAL(10,2) 
+)
+BEGIN
+DECLARE total_precio DECIMAL(10,2);
+
+SET total_precio = cantidad * precio;
+
+
+
+    -- Insertar datos en la tabla ordencompra
+    INSERT INTO ordencompra(id_orden, fecha_orden, DNI_provedor, DNI_empleado) VALUES
+    (id_orden, fecha_orden, DNI_provedor, DNI_empleado); -- prametros
+
+    -- Insertar datos en la tabla detallecompra
+    INSERT INTO detallecompra(id_detalle_orden, id_orden, id_pieza, cantidad, precio) VALUES
+    (id_detalle_orden, id_orden_2, id_pieza, cantidad, precio);
+
+UPDATE ordencompra
+SET total = total_precio
+WHERE id_orden = id_orden;
+
+END$$
+
+DELIMITER ;
+
+~~~~
+## Resultado:
+~~~~mysql
+CALL insertar_nueva_compra(111, '2024-06-10 11:00:00', 98765432, 'AIM913R', 11, 111, 50, 2, 350.00);
+~~~~
+## Explicacion:
+<pre>
+<strong>
+En este caso puntal, al momento de insertar una orden de compra debo tener en cuenta la integridad de los campos y de los vlores donde tengo encuenta la cantidad y el precio y su operacion de multiplicacion para asi mantener la consistencia en la base de datos
+</strong>
+</pre>
+9. Crear un procedimiento almacenado para actualizar los datos de un cliente
+~~~~mysql
+DELIMITER $$
+DROP PROCEDURE IF EXISTS actualizar_cliente;
+
+CREATE PROCEDURE actualizar_cliente(
+    IN N_DNI_cliente VARCHAR(16),
+    IN N_NIT VARCHAR(16),
+    IN N_nombre1 VARCHAR(20),
+    IN N_nombre2 VARCHAR(20),
+    IN N_apellido1 VARCHAR(20),
+    IN N_direccion VARCHAR(200),
+    IN N_email VARCHAR(200),
+    IN N_id_vehiculo VARCHAR(6)
+
+)
+BEGIN
+DECLARE mensaje VARCHAR(100);
+UPDATE cliente
+SET 
+    DNI_cliente = N_DNI_cliente,
+    NIT = N_NIT,
+    nombre1 = N_nombre1,
+    nombre2 = N_nombre2,
+    apellido1 = N_apellido1,
+    direccion = N_direccion,
+    email = N_email,
+    id_vehiculo = N_id_vehiculo
+WHERE
+    DNI_cliente = N_DNI_cliente;
+
+
+    IF ROW_COUNT() > 0 THEN
+SET mensaje = CONCAT('El cliente con ID ', N_DNI_cliente, ' ha sido
+actualizado exitosamente.');
+ELSE
+SET mensaje = 'No se encontró ningún producto con el ID proporcionado
+para actualizar.';
+END IF;
+SELECT mensaje AS 'Mensaje';
+END$$
+
+DELIMITER ;
+~~~~
+## Resultado:
+~~~~mysql
+CALL actualizar_cliente('00000014','A567123','Ana','Lucía','Fernández','Calle 20 #34-12','ana.fernandez2@example.com','TOO924');
+~~~~
+## Explicacion:
+<pre>
+<strong>
+Utilizo el recurso de los parametros donde hago un update sencillo y que me genera casos puntuales con el recurso IF
+</strong>
+</pre>
+10. Crear un procedimiento almacenado para obtener los servicios más solicitados
+en un período
+~~~~mysql
+DELIMITER $$ 
+DROP PROCEDURE IF EXISTS servicios_solicitados;
+CREATE PROCEDURE servicios_solicitados(
+    IN aino INT
+)
+BEGIN
+WITH servio_X_solicitado AS (
+            SELECT  S.descrip AS Descrip_servicio,
+                    COUNT(SR.id_servicio) AS Cant_Servios_X_Servicio,
+                    HR.fecha_ejecucion AS fecha_ejecucion
+            FROM servico AS S
+            INNER JOIN servicio_reparacion AS SR ON S.id_servicio = SR.id_servicio
+            INNER JOIN historiareparacion AS HR ON SR.id_historia_reparacion = HR.id_historia_reparacion
+            WHERE   YEAR(HR.fecha_ejecucion) = aino
+            GROUP BY Descrip_servicio, fecha_ejecucion
+)
+SELECT Cant_Servios_X_Servicio, Descrip_servicio
+FROM servio_X_solicitado
+WHERE Cant_Servios_X_Servicio = (SELECT MAX(Cant_Servios_X_Servicio) FROM servio_X_solicitado);
+END$$
+
+DELIMITER ;
+~~~~
+## Resultado:
+~~~~mysql
+CALL servicios_solicitados(2023);
+~~~~
+<pre>
++-------------------------+--------------------------------------------------+
+| Cant_Servios_X_Servicio | Descrip_servicio                                 |
++-------------------------+--------------------------------------------------+
+|                       2 | Servicio de mantenimiento de motor y componentes |
++-------------------------+--------------------------------------------------+
+</pre>
+## Explicacion:
+<pre>
+<strong>
+Utilizo el recurso WITH para generar una consulta donde por parametro de aino podre visualizar facilmente que servicios mas solicidos de dicho aino solicitado
 </strong>
 </pre>

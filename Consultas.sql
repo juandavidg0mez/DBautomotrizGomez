@@ -670,7 +670,7 @@ WITH servio_X_solicitado AS (
 SELECT Cant_Servios_X_Servicio, Descrip_servicio
 FROM servio_X_solicitado
 WHERE Cant_Servios_X_Servicio = (SELECT MAX(Cant_Servios_X_Servicio) FROM servio_X_solicitado);
-END$$
+END;
 
 DELIMITER ;
-CALL servicios_solicitados(2024);
+CALL servicios_solicitados(2023);
