@@ -9,8 +9,10 @@ CREATE TABLE marcavehiculo (
 CREATE TABLE vehiculo (
     id_vehiculo VARCHAR(6) PRIMARY KEY,
     id_marca INT,
-    Foreign Key (id_marca) REFERENCES marcavehiculo (id_marca)
+    kilometraje INT,
+    FOREIGN KEY (id_marca) REFERENCES marcavehiculo (id_marca)
 );
+
 
 CREATE TABLE cliente (
     DNI_cliente VARCHAR(16) PRIMARY KEY,
@@ -139,9 +141,10 @@ CREATE TABLE inventario (
     id_marca_pieza INT NOT NULL,
     id_taller INT NOT NULL,
     stock INT NOT NULL,
-    Foreign Key (id_pieza) REFERENCES repuestopieza (id_pieza),
-    Foreign Key (id_marca_pieza) REFERENCES marcapieza (id_marca_pieza),
-    Foreign Key (id_taller) REFERENCES areataller (id_taller)
+    stock_inicial INT NOT NULL,
+    FOREIGN KEY (id_pieza) REFERENCES repuestopieza (id_pieza),
+    FOREIGN KEY (id_marca_pieza) REFERENCES marcapieza (id_marca_pieza),
+    FOREIGN KEY (id_taller) REFERENCES areataller (id_taller)
 );
 
 CREATE TABLE tiposervicio (
@@ -240,4 +243,20 @@ INNER JOIN historiareparacion AS HR ON VH.id_vehiculo = HR.id_vehiculo
 INNER JOIN servicio_reparacion AS SVR ON HR.id_historia_reparacion = SVR.id_historia_reparacion
 ORDER BY CL.DNI_cliente DESC , SVR.id_servicio_reparacion DESC;
 
+-- CREATE VIEW vistaparainsercion AS
+-- SELECT  CL.DNI_cliente AS Cliente,
+--         FAC.fecha AS Factura_fecha_cliente,
+--         VE.id_vehiculo AS PLACA
+-- FROM vehiculo AS VE 
+-- INNER JOIN cliente AS CL ON VE.id_vehiculo = CL.id_vehiculo
+-- INNER JOIN factura AS FAC ON CL.`DNI_cliente` = FAC.`DNI_cliente`;
+
+-- INSERCIONES A historia_empelado
+
+-- CREATE VIEW historia_empleado_insercion AS
+-- SELECT EM.DNI_empleado AS empleado,
+--         TP.nombre_cargo AS CARGO
+-- FROM empleado AS EM
+-- INNER JOIN tipocargoempleado AS TP ON EM.id_tipo_cargo= TP.id_tipo_cargo
+-- ORDER BY EM.DNI_empleado;
 

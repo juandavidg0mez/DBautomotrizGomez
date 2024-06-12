@@ -85,11 +85,21 @@ WHERE YEAR(fecha_finalizacion) = 2024;
 9. Obtener el inventario de piezas que necesitan ser reabastecidas (cantidad
 menor que un umbral)
 */
-
-SELECT INV.id_inventario AS NUM_INV, INV.stock AS Stock, R.nombre_pieza AS Nombre_Pieza
-FROM repuestopieza AS R
-INNER JOIN inventario AS INV ON R.id_pieza = INV.id_pieza
-WHERE INV.stock = 15;
+WITH stock_umbral AS (
+    SELECT 
+        INV.id_inventario AS NUM_INV, 
+        INV.stock AS Stock, 
+        R.nombre_pieza AS Nombre_Pieza, 
+        INV.stock_inicial AS Inicial_stock
+    FROM repuestopieza AS R
+    INNER JOIN inventario AS INV ON R.id_pieza = INV.id_pieza
+)
+SELECT 
+    Nombre_Pieza, 
+    Inicial_stock, 
+    Stock
+FROM stock_umbral
+WHERE Stock < Inicial_stock * 0.10;
 
 /*
 10. Obtener la lista de servicios más solicitados en un período específico
@@ -315,19 +325,17 @@ SELECT
 /*
 5. Obtener las piezas que están en inventario por debajo del 10% del stock inicial
 */
-
-WITH lista_stock_pieza AS(
-    
+WITH lista_stock_pieza AS (
     SELECT
         RP.nombre_pieza AS Nombre_pieza,
-        INV.stock AS STOCK
-FROM repuestopieza AS RP
-INNER JOIN inventario AS INV ON RP.id_pieza = INV.id_pieza
+        INV.stock AS Stock,
+        INV.stock_inicial AS Stock_Inicial
+    FROM repuestopieza AS RP
+    INNER JOIN inventario AS INV ON RP.id_pieza = INV.id_pieza
 )
-SELECT  STOCK, Nombre_pieza
+SELECT Nombre_pieza, Stock
 FROM lista_stock_pieza
-WHERE STOCK < (STOCK * 0.10);
-
+WHERE Stock < (Stock_Inicial * 0.10);
 
 -- Procedimientos Almacenados
 
@@ -553,6 +561,17 @@ CALL repaciones_vehiculo_aino('00000017', 2022);
 7. Crear un procedimiento almacenado para obtener la lista de vehículos que
 requieren mantenimiento basado en el kilometraje.
 */
+DELIMITER $$
+
+CREATE PROCEDURE ObtenerVehiculosMantenimiento(IN umbral_kilometraje INT)
+BEGIN
+    SELECT id_vehiculo, id_marca, kilometraje
+    FROM vehiculo
+    WHERE kilometraje >= umbral_kilometraje;
+END $$
+
+DELIMITER ;
+CALL ObtenerVehiculosMantenimiento(20000);
 
 /*
 8. Crear un procedimiento almacenado para insertar una nueva orden de compra

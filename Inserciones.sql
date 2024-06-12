@@ -16,32 +16,33 @@ INSERT INTO marcavehiculo (id_marca, nombre) VALUES
 (14, 'Lexus'),
 (15, 'Tesla');
 
-INSERT INTO vehiculo (id_vehiculo, id_marca) VALUES
-('UHK946', 3),
-('BOA229', 1),
-('YSR328', 6),
-('CSU573', 1),
-('OOO529', 3),
-('LPS177', 12),
-('NFV108', 15),
-('JQT791', 10),
-('GRU810', 5),
-('YYP173', 4),
-('OBN836', 8),
-('JSW375', 7),
-('BSA281', 2),
-('TOO924', 13),
-('HXC839', 8),
-('XYZ123', 4),
-('ABC456', 6),
-('DEF789', 10),
-('GHI012', 2),
-('JKL345', 8),
-('MNO678', 3),
-('PQR901', 5),
-('STU234', 12),
-('VWX567', 15),
-('YZA890', 8);
+INSERT INTO vehiculo (id_vehiculo, id_marca, kilometraje) VALUES
+('UHK946', 3, 12000),
+('BOA229', 1, 15000),
+('YSR328', 6, 8000),
+('CSU573', 1, 20000),
+('OOO529', 3, 5000),
+('LPS177', 12, 10000),
+('NFV108', 15, 7000),
+('JQT791', 10, 11000),
+('GRU810', 5, 9000),
+('YYP173', 4, 30000),
+('OBN836', 8, 45000),
+('JSW375', 7, 25000),
+('BSA281', 2, 6000),
+('TOO924', 13, 35000),
+('HXC839', 8, 27000),
+('XYZ123', 4, 23000),
+('ABC456', 6, 21000),
+('DEF789', 10, 5000),
+('GHI012', 2, 40000),
+('JKL345', 8, 17000),
+('MNO678', 3, 22000),
+('PQR901', 5, 29000),
+('STU234', 12, 32000),
+('VWX567', 15, 26000),
+('YZA890', 8, 24000);
+
 /*
 Marcas Faltantes que se pueden utilizar para los procedimientos almacenados
 
@@ -50,8 +51,7 @@ INSERT INTO vehiculo (id_vehiculo, id_marca) VALUES
 ('ABC456', 11),
 ('DEF789', 14);
 */
-SELECT * FROM cliente;
-DELETE FROM cliente;
+
 INSERT INTO cliente (DNI_cliente, NIT, nombre1, nombre2, apellido1, direccion, email, id_vehiculo) VALUES
 ('00000000', 'A1234567', 'Juan', 'Carlos', 'González', 'Calle 45 #12-34', 'juan.gonzalez@example.com', 'UHK946'),
 ('00000001', 'B2345678', 'María', NULL, 'Rodríguez', 'Calle 56 #23-45', 'maria.rodriguez@example.com', 'BOA229'),
@@ -80,7 +80,7 @@ INSERT INTO cliente (DNI_cliente, NIT, nombre1, nombre2, apellido1, direccion, e
 ('00000024', NULL, 'Carlos', 'José', 'Pérez', 'Calle 12 #56-78', 'carlos.perez3@example.com', 'YZA890');
 
 
--- inserciones a tabla factura
+
 INSERT INTO factura (id_factura, DNI_cliente, fecha) VALUES
 (1, '00000000', '2023-06-06'),
 (2, '00000001', '2023-07-16'),
@@ -108,7 +108,7 @@ INSERT INTO factura (id_factura, DNI_cliente, fecha) VALUES
 (24, '00000023', '2024-02-26'),
 (25, '00000024', '2024-01-23');
 
--- inserciones a tabla cargo empleado
+
 
 INSERT INTO tipocargoempleado (id_tipo_cargo, nombre_cargo) VALUES
 (1, 'Mecánico de Motor'),
@@ -123,7 +123,7 @@ INSERT INTO tipocargoempleado (id_tipo_cargo, nombre_cargo) VALUES
 (10, 'Inspector Técnico'),
 (11, 'Mecanico patinador');
 
--- insercioens a tabla empleado
+
 
 INSERT INTO empleado (DNI_empleado, nombre1, nombre2, apellido1, direccion, email, id_tipo_cargo) VALUES
 ('JCL123A', 'Juan', 'Carlos', 'López', 'Calle Principal 123', 'juan.lopez@example.com', 1),
@@ -146,7 +146,7 @@ INSERT INTO empleado (DNI_empleado, nombre1, nombre2, apellido1, direccion, emai
 ('AIM913R', 'Andrea', 'Isabel', 'Martínez', 'Carrera 20 #30-40', 'andrea.martinez@example.com', 2),
 ('GAH371S', 'Gabriel', 'Alejandro', 'Hernández', 'Avenida Sur 456', 'gabriel.hernandez@example.com', 9),
 ('LXG798T', 'Luisa', NULL, 'García', 'Calle Este 789', 'luisa.garcia@example.com', 9);
--- inserciones a Tipo de telefono
+
 
 INSERT INTO tipotelefono (id_tipo_telefono, nombre) VALUES
 (1, 'Móvil'),
@@ -154,8 +154,7 @@ INSERT INTO tipotelefono (id_tipo_telefono, nombre) VALUES
 (3, 'Trabajo'),
 (4, 'Fax');
 
--- inserciones a global telefono
--- Inserciones para los números de teléfono de empleados
+
 INSERT INTO globaltelefono (id_telefono_global, id_tipo_telefono, telefono) VALUES
 (1, 1, '555-123-4567'), -- Móvil
 (2, 2, '555-234-5678'), -- Fijo
@@ -223,7 +222,7 @@ INSERT INTO globaltelefono (id_telefono_global, id_tipo_telefono, telefono) VALU
 (64, 4, '555-765-4323'), -- Móvil
 (65, 2, '555-654-3212'); -- Fijo
 
--- incerciones de marcas
+
 INSERT INTO marcapieza (id_marca_pieza, nombre) VALUES
 (1, 'Bosch'),
 (2, 'Denso'),
@@ -241,7 +240,7 @@ INSERT INTO marcapieza (id_marca_pieza, nombre) VALUES
 (14, 'Sachs'),
 (15, 'TRW');
 
--- inserciones a tabla provedores
+
 
 INSERT INTO provedor (DNI_provedor, NIT, nombre1, apellido1, email, id_marca_pieza) VALUES
 (98765432, 'X133456X', 'Juan', 'González', 'juan@example.com', 1),
@@ -261,7 +260,7 @@ INSERT INTO provedor (DNI_provedor, NIT, nombre1, apellido1, email, id_marca_pie
 (57924680, 'X567890X', 'Luis', 'Pérez', 'luis@example.com', 15);
 
 
--- categoria repuesto
+
 
 INSERT INTO categoriarepuesto (id_categoria, nombre) VALUES
 (1, 'Motor y componentes'),
@@ -372,7 +371,6 @@ INSERT INTO repuestopieza (id_pieza, id_categoria, nombre_pieza, precio_unidad) 
 (62, 21, 'Limpiador de inyectores', 10.00),
 (63, 21, 'Anticongelante', 20.00);
 
-SELECT * FROM ordencompra
 
 -- ordencompra 
 INSERT INTO ordencompra (id_orden, fecha_orden, DNI_provedor, DNI_empleado, total) VALUES
@@ -388,7 +386,7 @@ INSERT INTO ordencompra (id_orden, fecha_orden, DNI_provedor, DNI_empleado, tota
 (110, '2024-01-24 11:50:00', 90123456, 'LGX896G', 220.00);
 
 
-SELECT * FROM empleado;
+
 
 
 INSERT INTO detallecompra (id_detalle_orden, id_orden, id_pieza, cantidad, precio) VALUES
@@ -432,25 +430,7 @@ INSERT INTO historiareparacion (id_historia_reparacion, id_vehiculo, id_pieza, c
 (24, 'NFV108', 15, 4, '2014-12-02 12:30:00', '2014-12-22 17:00:00'),
 (25, 'VWX567', 49, 1, '2024-10-16 08:00:00', '2024-10-22 12:00:00');
 
-SELECT * FROM historia_empelado;
 
-SELECT * FROM historiareparacion;
--- CREATE VIEW vistaparainsercion AS
--- SELECT  CL.DNI_cliente AS Cliente,
---         FAC.fecha AS Factura_fecha_cliente,
---         VE.id_vehiculo AS PLACA
--- FROM vehiculo AS VE 
--- INNER JOIN cliente AS CL ON VE.id_vehiculo = CL.id_vehiculo
--- INNER JOIN factura AS FAC ON CL.`DNI_cliente` = FAC.`DNI_cliente`;
-
--- INSERCIONES A historia_empelado
-
--- CREATE VIEW historia_empleado_insercion AS
--- SELECT EM.DNI_empleado AS empleado,
---         TP.nombre_cargo AS CARGO
--- FROM empleado AS EM
--- INNER JOIN tipocargoempleado AS TP ON EM.id_tipo_cargo= TP.id_tipo_cargo
--- ORDER BY EM.DNI_empleado;
 
 INSERT INTO historia_empelado (id_historia_reparacion, DNI_empleado) VALUES
 (1, 'AIM913R'),
@@ -523,77 +503,77 @@ INSERT INTO areataller (id_taller, nombre) VALUES
 (14, 'Área de Espera para Clientes'),
 (15, 'Administración y Gestión');
 
-INSERT INTO inventario (id_inventario, id_pieza, id_marca_pieza, id_taller, stock) VALUES
-('INV001', 1, 1, 1, 50),  -- Bloque de motor, Bosch, Recepción y Atención al Cliente
-('INV002', 2, 2, 2, 30),  -- Cigüeñal, Denso, Diagnóstico y Evaluación
-('INV003', 3, 3, 3, 40),  -- Bujías, Delphi, Mecánica General
-('INV004', 4, 4, 4, 20),  -- Caja de cambios, Valeo, Electricidad y Electrónica Automotriz
-('INV005', 5, 5, 5, 25),  -- Embrague, NGK, Reparación de Transmisiones
-('INV006', 6, 6, 6, 15),  -- Convertidor de par, MagnaFlow, Frenos y Suspensión
-('INV007', 7, 7, 7, 10),  -- Silenciador, Brembo, Alineación y Balanceo
-('INV008', 8, 8, 8, 35),  -- Catalizador, Michelin, Cambio de Aceite y Lubricantes
-('INV009', 9, 9, 9, 12),  -- Tubos de escape, Goodyear, Carrocería y Pintura
-('INV010', 10, 10, 10, 45), -- Discos de freno, Continental, Vidrios y Cristales
-('INV011', 11, 11, 11, 20), -- Pastillas de freno, KYB, Accesorios y Personalización
-('INV012', 12, 12, 12, 50), -- Bombas de freno, Hella, Inspección y Certificación
-('INV013', 13, 13, 13, 10), -- Amortiguadores, Monroe, Almacén de Repuestos
-('INV014', 14, 14, 14, 25), -- Muelles de suspensión, Sachs, Área de Espera para Clientes
-('INV015', 15, 15, 15, 30), -- Brazos de suspensión, TRW, Administración y Gestión
-('INV016', 16, 1, 1, 60),  -- Radiador, Bosch, Recepción y Atención al Cliente
-('INV017', 17, 2, 2, 22),  -- Termostato, Denso, Diagnóstico y Evaluación
-('INV018', 18, 3, 3, 35),  -- Bomba de agua, Delphi, Mecánica General
-('INV019', 19, 4, 4, 20),  -- Alternador, Valeo, Electricidad y Electrónica Automotriz
-('INV020', 20, 5, 5, 25),  -- Batería, NGK, Reparación de Transmisiones
-('INV021', 21, 6, 6, 15),  -- Motor de arranque, MagnaFlow, Frenos y Suspensión
-('INV022', 22, 7, 7, 18),  -- Inyector de combustible, Brembo, Alineación y Balanceo
-('INV023', 23, 8, 8, 20),  -- Bomba de combustible, Michelin, Cambio de Aceite y Lubricantes
-('INV024', 24, 9, 9, 40),  -- Filtro de combustible, Goodyear, Carrocería y Pintura
-('INV025', 25, 10, 10, 30), -- Compresor de aire acondicionado, Continental, Vidrios y Cristales
-('INV026', 26, 11, 1, 18),  -- Evaporador, KYB, Recepción y Atención al Cliente
-('INV027', 27, 12, 2, 22),  -- Condensador, Hella, Diagnóstico y Evaluación
-('INV028', 28, 13, 3, 12),  -- Parachoques, Monroe, Mecánica General
-('INV029', 29, 14, 4, 25),  -- Guardabarros, Sachs, Electricidad y Electrónica Automotriz
-('INV030', 30, 15, 5, 30),  -- Parabrisas, TRW, Reparación de Transmisiones
-('INV031', 31, 1, 6, 20),   -- Faros delanteros, Bosch, Frenos y Suspensión
-('INV032', 32, 2, 7, 15),   -- Luces traseras, Denso, Alineación y Balanceo
-('INV033', 33, 3, 8, 25),   -- Intermitentes, Delphi, Cambio de Aceite y Lubricantes
-('INV034', 34, 4, 9, 50),   -- Asientos, Valeo, Carrocería y Pintura
-('INV035', 35, 5, 10, 10),  -- Alfombras, NGK, Vidrios y Cristales
-('INV036', 36, 6, 11, 45),  -- Volante, MagnaFlow, Accesorios y Personalización
-('INV037', 37, 7, 12, 20),  -- Espejos retrovisores, Brembo, Inspección y Certificación
-('INV038', 38, 8, 13, 30),  -- Sensores de estacionamiento, Michelin, Almacén de Repuestos
-('INV039', 39, 9, 14, 25),  -- Portaequipajes, Goodyear, Área de Espera para Clientes
-('INV040', 40, 10, 15, 35), -- Neumáticos, Continental, Administración y Gestión
-('INV041', 41, 11, 1, 18),  -- Llantas, KYB, Recepción y Atención al Cliente
-('INV042', 42, 12, 2, 22),  -- Tapacubos, Hella, Diagnóstico y Evaluación
-('INV043', 43, 13, 3, 12),  -- Airbags, Monroe, Mecánica General
-('INV044', 44, 14, 4, 25),  -- Cinturones de seguridad, Sachs, Electricidad y Electrónica Automotriz
-('INV045', 45, 15, 5, 30),  -- Sistemas de alarma, TRW, Reparación de Transmisiones
-('INV046', 46, 1, 6, 20),   -- Aceite de motor, Bosch, Frenos y Suspensión
-('INV047', 47, 2, 7, 15),   -- Líquido de frenos, Denso, Alineación y Balanceo
-('INV048', 48, 3, 8, 25),   -- Refrigerante, Delphi, Cambio de Aceite y Lubricantes
-('INV049', 49, 4, 9, 50),   -- Radio, Valeo, Carrocería y Pintura
-('INV050', 50, 5, 10, 10),  -- Sistema de navegación GPS, NGK, Vidrios y Cristales
-('INV051', 51, 6, 11, 45),  -- Altavoces, MagnaFlow, Accesorios y Personalización
-('INV052', 52, 7, 12, 20),  -- Bomba de dirección asistida, Brembo, Inspección y Certificación
-('INV053', 53, 8, 13, 30),  -- Manguera de dirección, Michelin, Almacén de Repuestos
-('INV054', 54, 9, 14, 25),  -- Líquido de dirección asistida, Goodyear, Área de Espera para Clientes
-('INV055', 55, 10, 15, 35), -- Convertidor de par, Continental, Administración y Gestión
-('INV056', 56, 11, 1, 18),  -- Válvula de transmisión, KYB, Recepción y Atención al Cliente
-('INV057', 57, 12, 2, 22),  -- Solenoide de transmisión, Hella, Diagnóstico y Evaluación
-('INV058', 58, 13, 3, 12),  -- Compresor de suspensión neumática, Monroe, Mecánica General
-('INV059', 59, 14, 4, 25),  -- Amortiguador neumático, Sachs, Electricidad y Electrónica Automotriz
-('INV060', 60, 15, 5, 30),  -- Válvula de suspensión, TRW, Reparación de Transmisiones
-('INV061', 61, 1, 6, 20),   -- Aceite de transmisión, Bosch, Frenos y Suspensión
-('INV062', 62, 2, 7, 15),   -- Limpiador de inyectores, Denso, Alineación y Balanceo
-('INV063', 63, 3, 8, 25),   -- Anticongelante, Delphi, Cambio de Aceite y Lubricantes
-('INV064', 24, 5, 9, 50),   -- Filtro de combustible, NGK, Carrocería y Pintura
-('INV065', 22, 6, 10, 10),  -- Inyector de combustible, MagnaFlow, Vidrios y Cristales
-('INV066', 23, 7, 11, 45),  -- Bomba de combustible, Brembo, Accesorios y Personalización
-('INV067', 21, 8, 12, 20),  -- Motor de arranque, Michelin, Inspección y Certificación
-('INV068', 20, 9, 13, 30),  -- Batería, Goodyear, Almacén de Repuestos
-('INV069', 19, 10, 14, 25), -- Alternador, Continental, Área de Espera para Clientes
-('INV070', 18, 11, 15, 35); -- Bomba de agua, KYB, Administración y Gestión
+INSERT INTO inventario (id_inventario, id_pieza, id_marca_pieza, id_taller, stock, stock_inicial) VALUES
+('INV001', 1, 1, 1, 4,5),  -- Bloque de motor, Bosch, Recepción y Atención al Cliente
+('INV002', 2, 2, 2, 30,3),  -- Cigüeñal, Denso, Diagnóstico y Evaluación
+('INV003', 3, 3, 3, 40,100),  -- Bujías, Delphi, Mecánica General
+('INV004', 4, 4, 4, 1,2),  -- Caja de cambios, Valeo, Electricidad y Electrónica Automotriz
+('INV005', 5, 5, 5, 25,3),  -- Embrague, NGK, Reparación de Transmisiones
+('INV006', 6, 6, 6, 0,1),  -- Convertidor de par, MagnaFlow, Frenos y Suspensión
+('INV007', 7, 7, 7, 10,1),  -- Silenciador, Brembo, Alineación y Balanceo
+('INV008', 8, 8, 8, 35,20),  -- Catalizador, Michelin, Cambio de Aceite y Lubricantes
+('INV009', 9, 9, 9, 12,120),  -- Tubos de escape, Goodyear, Carrocería y Pintura
+('INV010', 10, 10, 10, 45,4), -- Discos de freno, Continental, Vidrios y Cristales
+('INV011', 11, 11, 11, 20,200), -- Pastillas de freno, KYB, Accesorios y Personalización
+('INV012', 12, 12, 12, 50,5), -- Bombas de freno, Hella, Inspección y Certificación
+('INV013', 13, 13, 13, 10,3), -- Amortiguadores, Monroe, Almacén de Repuestos
+('INV014', 14, 14, 14, 25,1), -- Muelles de suspensión, Sachs, Área de Espera para Clientes
+('INV015', 15, 15, 15, 30,4), -- Brazos de suspensión, TRW, Administración y Gestión
+('INV016', 16, 1, 1, 60,24),  -- Radiador, Bosch, Recepción y Atención al Cliente
+('INV017', 17, 2, 2, 2,5),  -- Termostato, Denso, Diagnóstico y Evaluación
+('INV018', 18, 3, 3, 35,2),  -- Bomba de agua, Delphi, Mecánica General
+('INV019', 19, 4, 4, 20,100),  -- Alternador, Valeo, Electricidad y Electrónica Automotriz
+('INV020', 20, 5, 5, 25,2),  -- Batería, NGK, Reparación de Transmisiones
+('INV021', 21, 6, 6, 5,5),  -- Motor de arranque, MagnaFlow, Frenos y Suspensión
+('INV022', 22, 7, 7, 18,17),  -- Inyector de combustible, Brembo, Alineación y Balanceo
+('INV023', 23, 8, 8, 20,3),  -- Bomba de combustible, Michelin, Cambio de Aceite y Lubricantes
+('INV024', 24, 9, 9, 40,3),  -- Filtro de combustible, Goodyear, Carrocería y Pintura
+('INV025', 25, 10, 10, 2,3), -- Compresor de aire acondicionado, Continental, Vidrios y Cristales
+('INV026', 26, 11, 1, 18,100),  -- Evaporador, KYB, Recepción y Atención al Cliente
+('INV027', 27, 12, 2, 22,3),  -- Condensador, Hella, Diagnóstico y Evaluación
+('INV028', 28, 13, 3, 12,4),  -- Parachoques, Monroe, Mecánica General
+('INV029', 29, 14, 4, 25,2),  -- Guardabarros, Sachs, Electricidad y Electrónica Automotriz
+('INV030', 30, 15, 5, 30,7),  -- Parabrisas, TRW, Reparación de Transmisiones
+('INV031', 31, 1, 6, 20,4),   -- Faros delanteros, Bosch, Frenos y Suspensión
+('INV032', 32, 2, 7, 15,5),   -- Luces traseras, Denso, Alineación y Balanceo
+('INV033', 33, 3, 8, 25,6),   -- Intermitentes, Delphi, Cambio de Aceite y Lubricantes
+('INV034', 34, 4, 9, 50,5),   -- Asientos, Valeo, Carrocería y Pintura
+('INV035', 35, 5, 10, 10,10),  -- Alfombras, NGK, Vidrios y Cristales
+('INV036', 36, 6, 11, 9,4),  -- Volante, MagnaFlow, Accesorios y Personalización
+('INV037', 37, 7, 12, 20,6),  -- Espejos retrovisores, Brembo, Inspección y Certificación
+('INV038', 38, 8, 13, 30,4),  -- Sensores de estacionamiento, Michelin, Almacén de Repuestos
+('INV039', 39, 9, 14, 25,5),  -- Portaequipajes, Goodyear, Área de Espera para Clientes
+('INV040', 40, 10, 15, 35,7), -- Neumáticos, Continental, Administración y Gestión
+('INV041', 41, 11, 1, 18,8),  -- Llantas, KYB, Recepción y Atención al Cliente
+('INV042', 42, 12, 2, 22,220),  -- Tapacubos, Hella, Diagnóstico y Evaluación
+('INV043', 43, 13, 3, 12,55),  -- Airbags, Monroe, Mecánica General
+('INV044', 44, 14, 4, 25,50),  -- Cinturones de seguridad, Sachs, Electricidad y Electrónica Automotriz
+('INV045', 45, 15, 5, 4,40),  -- Sistemas de alarma, TRW, Reparación de Transmisiones
+('INV046', 46, 1, 6, 5,50),   -- Aceite de motor, Bosch, Frenos y Suspensión
+('INV047', 47, 2, 7, 15,7),   -- Líquido de frenos, Denso, Alineación y Balanceo
+('INV048', 48, 3, 8, 25,8),   -- Refrigerante, Delphi, Cambio de Aceite y Lubricantes
+('INV049', 49, 4, 9, 50,90),   -- Radio, Valeo, Carrocería y Pintura
+('INV050', 50, 5, 10, 10,78),  -- Sistema de navegación GPS, NGK, Vidrios y Cristales
+('INV051', 51, 6, 11, 45,9),  -- Altavoces, MagnaFlow, Accesorios y Personalización
+('INV052', 52, 7, 12, 20,9),  -- Bomba de dirección asistida, Brembo, Inspección y Certificación
+('INV053', 53, 8, 13, 30,10),  -- Manguera de dirección, Michelin, Almacén de Repuestos
+('INV054', 54, 9, 14, 25,5),  -- Líquido de dirección asistida, Goodyear, Área de Espera para Clientes
+('INV055', 55, 10, 15, 35,350), -- Convertidor de par, Continental, Administración y Gestión
+('INV056', 56, 11, 1, 18,50),  -- Válvula de transmisión, KYB, Recepción y Atención al Cliente
+('INV057', 57, 12, 2, 22,60),  -- Solenoide de transmisión, Hella, Diagnóstico y Evaluación
+('INV058', 58, 13, 3, 12,60),  -- Compresor de suspensión neumática, Monroe, Mecánica General
+('INV059', 59, 14, 4, 25,5),  -- Amortiguador neumático, Sachs, Electricidad y Electrónica Automotriz
+('INV060', 60, 15, 5, 30,90),  -- Válvula de suspensión, TRW, Reparación de Transmisiones
+('INV061', 61, 1, 6, 20,78),   -- Aceite de transmisión, Bosch, Frenos y Suspensión
+('INV062', 62, 2, 7, 15,3),   -- Limpiador de inyectores, Denso, Alineación y Balanceo
+('INV063', 63, 3, 8, 25,4),   -- Anticongelante, Delphi, Cambio de Aceite y Lubricantes
+('INV064', 24, 5, 9, 50,5),   -- Filtro de combustible, NGK, Carrocería y Pintura
+('INV065', 22, 6, 10, 10,6),  -- Inyector de combustible, MagnaFlow, Vidrios y Cristales
+('INV066', 23, 7, 11, 45,6),  -- Bomba de combustible, Brembo, Accesorios y Personalización
+('INV067', 21, 8, 12, 20,90),  -- Motor de arranque, Michelin, Inspección y Certificación
+('INV068', 20, 9, 13, 30,50),  -- Batería, Goodyear, Almacén de Repuestos
+('INV069', 19, 10, 14, 25,400), -- Alternador, Continental, Área de Espera para Clientes
+('INV070', 18, 11, 15, 35,500); -- Bomba de agua, KYB, Administración y Gestión
 
 -- inserciones en la tabla tiposervicio
 INSERT INTO tiposervicio (id_tipo_servicio, nombre_servicio) VALUES
@@ -623,11 +603,6 @@ INSERT INTO servico (id_servicio, id_taller, id_tipo_servicio, descrip, costo) V
 (11, 11, 6, 'Servicio de instalación de accesorios y personalización', 150.00),
 (12, 12, 1, 'Servicio de inspección y certificación vehicular', 90.00);
 
-SELECT * FROM areataller;
-
-
-SELECT * FROM historiareparacion;
-SELECT * FROM servico;
 
 -- Servicios relacionados con cada reparación
 INSERT INTO servicio_reparacion (id_servicio_reparacion, id_servicio, id_historia_reparacion) VALUES
@@ -750,12 +725,6 @@ INSERT INTO detallefactura (id_servicio_reparacion, id_factura) VALUES
 (15, 1);
 
 
-SELECT COUNT(*) FROM provedor;
-SELECT COUNT(*) FROM cliente;
-
-SELECT COUNT(*) FROM empleado;
-
-SELECT COUNT(*) FROM globaltelefono;
 
 INSERT INTO provedortelefono (DNI_provedor, id_telefono_global) VALUES
 (98765432, 1),

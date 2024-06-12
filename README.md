@@ -938,26 +938,35 @@ SELECT
 5. Obtener las piezas que están en inventario por debajo del 10% del stock inicial
 
 ~~~~mysql
-WITH lista_stock_pieza AS(
-    
-    SELECT
-        RP.nombre_pieza AS Nombre_pieza,
-        INV.stock AS STOCK
-FROM repuestopieza AS RP
-INNER JOIN inventario AS INV ON RP.id_pieza = INV.id_pieza
+WITH stock_umbral AS (
+    SELECT 
+        INV.id_inventario AS NUM_INV, 
+        INV.stock AS Stock, 
+        R.nombre_pieza AS Nombre_Pieza, 
+        INV.stock_inicial AS Inicial_stock
+    FROM repuestopieza AS R
+    INNER JOIN inventario AS INV ON R.id_pieza = INV.id_pieza
 )
-SELECT  STOCK, Nombre_pieza
-FROM lista_stock_pieza
-WHERE STOCK < (STOCK * 0.10);
+SELECT 
+    Nombre_Pieza, 
+    Inicial_stock, 
+    Stock
+FROM stock_umbral
+WHERE Stock < Inicial_stock * 0.10;
+
 ~~~~
 ## Resultado:
 <pre>
-
++--------------------+---------------+-------+
+| Nombre_Pieza       | Inicial_stock | Stock |
++--------------------+---------------+-------+
+| Convertidor de par |             1 |     0 |
++--------------------+---------------+-------+
 </pre>
 ## Explicacion:
 <pre>
 <strong>
-En este caso puntual totas la piezas estan al dia en sus stock
+Utilice la sentencia With para generar una cosnulta mas ordenada
 </strong>
 </pre>
 
@@ -1236,6 +1245,52 @@ CALL insertar_nueva_compra(111, '2024-06-10 11:00:00', 98765432, 'AIM913R', 11, 
 En este caso puntal, al momento de insertar una orden de compra debo tener en cuenta la integridad de los campos y de los vlores donde tengo encuenta la cantidad y el precio y su operacion de multiplicacion para asi mantener la consistencia en la base de datos
 </strong>
 </pre>
+7. Crear un procedimiento almacenado para obtener la lista de vehículos que
+requieren mantenimiento basado en el kilometraje.
+~~~~mysql
+DELIMITER $$
+
+CREATE PROCEDURE ObtenerVehiculosMantenimiento(IN umbral_kilometraje INT)
+BEGIN
+    SELECT id_vehiculo, id_marca, kilometraje
+    FROM vehiculo
+    WHERE kilometraje >= umbral_kilometraje;
+END $$
+
+DELIMITER ;
+CALL ObtenerVehiculosMantenimiento(20000);
+~~~~
+## Resultado:
+~~~~mysql
+CALL ObtenerVehiculosMantenimiento(20000);
+~~~~
+<pre>
++-------------+----------+-------------+
+| id_vehiculo | id_marca | kilometraje |
++-------------+----------+-------------+
+| ABC456      |        6 |       21000 |
+| CSU573      |        1 |       20000 |
+| GHI012      |        2 |       40000 |
+| HXC839      |        8 |       27000 |
+| JSW375      |        7 |       25000 |
+| MNO678      |        3 |       22000 |
+| OBN836      |        8 |       45000 |
+| PQR901      |        5 |       29000 |
+| STU234      |       12 |       32000 |
+| TOO924      |       13 |       35000 |
+| VWX567      |       15 |       26000 |
+| XYZ123      |        4 |       23000 |
+| YYP173      |        4 |       30000 |
+| YZA890      |        8 |       24000 |
++-------------+----------+-------------+
+</pre>
+## Explicacion:
+<pre>
+<strong>
+En este caso genere un umbral que me desee que se menor de este
+</strong>
+</pre>
+
 9. Crear un procedimiento almacenado para actualizar los datos de un cliente
 ~~~~mysql
 DELIMITER $$
